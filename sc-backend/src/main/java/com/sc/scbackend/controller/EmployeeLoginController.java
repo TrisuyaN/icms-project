@@ -7,15 +7,16 @@ import com.sc.scbackend.enums.AccountStatus;
 import com.sc.scbackend.service.EmployeeService;
 import com.sc.scbackend.utils.HutoolJWTUtil;
 import com.sc.scbackend.utils.MD5Util;
+import com.sc.scbackend.utils.SmsMessageService;
 import com.sc.scbackend.utils.SmsMessageUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/sc/api/employee")
@@ -25,10 +26,10 @@ public class EmployeeLoginController {
     private EmployeeService employeeService;
 
     @Autowired
-    private SmsMessageUtil smsMessageUtil;
+    private SmsMessageService smsMessageService;
 
-    // TODO: 手机号验证码缓存
-    private final ConcurrentHashMap<String, String> codeStore = new ConcurrentHashMap<>();
+    private static final String SMS_CODE_PREFIX = "sms_code:";
+    private static final int EXPIRATION_TIME = 5; // 过期时间（分钟）
 
     @PostMapping("loginByAccountAndPassword")
     public BaseResult loginByAccountAndPassword(@RequestBody Employee employee, HttpServletRequest request) {
@@ -89,25 +90,23 @@ public class EmployeeLoginController {
     @PostMapping("sendSMSCode")
     public BaseResult sendSMSCode(@RequestBody Employee employee) throws Exception {
         String code;
-        Employee login_employee = employeeService.getByPhoneNumber(employee.getPhoneNumber());
-        if (login_employee == null) {
+        Employee loginEmployee = employeeService.getByPhoneNumber(employee.getPhoneNumber());
+        if (loginEmployee == null) {
             return BaseResult.fail("登录失败，账号不存在");
-        } else {
-            code = smsMessageUtil.SendMessage(employee.getPhoneNumber());
         }
 
-        // TODO: 细化返回信息、修改缓存方式
-        if (code != null) {
-            codeStore.put(employee.getPhoneNumber(), code);
+        boolean codeSendRes = smsMessageService.sendSmsCode(loginEmployee.getPhoneNumber());
+        if (codeSendRes) {
             return BaseResult.success();
         } else {
             return BaseResult.fail();
         }
 
+
     }
 
-    @PostMapping("verifySMSCode")
-    public BaseResult verifySMSCode(@RequestBody SmsVerificationRequest smsVerificationRequest, HttpServletRequest request) {
+    @PostMapping("loginBySMSCode")
+    public BaseResult loginBySMSCode(@RequestBody SmsVerificationRequest smsVerificationRequest, HttpServletRequest request) {
         Employee login_employee = employeeService.getByPhoneNumber(smsVerificationRequest.getPhoneNumber());
 
         if (login_employee == null) {
@@ -115,8 +114,8 @@ public class EmployeeLoginController {
         } else if (Objects.equals(login_employee.getStatus(), AccountStatus.INACTIVE.name())) {
             return BaseResult.fail("登录失败，账号未激活或被封禁，请联系系统管理员");
         } else {
-            String true_code = codeStore.get(smsVerificationRequest.getPhoneNumber());
-            if (!true_code.equals(smsVerificationRequest.getCode())) {
+            boolean validateRes = smsMessageService.validateSmsCode(smsVerificationRequest.getPhoneNumber(), smsVerificationRequest.getCode());
+            if (!validateRes) {
                 return BaseResult.fail("登录失败，验证码错误");
             }
         }

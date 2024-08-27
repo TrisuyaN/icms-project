@@ -42,22 +42,19 @@ public class SmsMessageUtil {
         return new com.aliyun.dysmsapi20170525.Client(config);
     }
 
-    // TODO: API 修改，考虑提取 code 为参数
-    public String SendMessage(String phoneNumber) throws Exception {
-
-        // TODO: 随机化验证码
-        String code = "114514";
-
+    public boolean sendMessage(String phoneNumber, String code) throws Exception {
         com.aliyun.dysmsapi20170525.Client client = createClient();
         com.aliyun.dysmsapi20170525.models.SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setSignName(signName)
                 .setTemplateCode(templateCode)
+//                .setPhoneNumbers(phoneNumber)
                 .setPhoneNumbers("13654291969")
                 .setTemplateParam("{\"code\":\"" + code + "\"}");
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         try {
             com.aliyun.dysmsapi20170525.models.SendSmsResponse resp = client.sendSmsWithOptions(sendSmsRequest, runtime);
             com.aliyun.teaconsole.Client.log(com.aliyun.teautil.Common.toJSONString(resp));
+            return true;
         } catch (TeaException error) {
             // 此处仅做打印展示，请谨慎对待异常处理，在工程项目中切勿直接忽略异常。
             // 错误 message
@@ -74,7 +71,6 @@ public class SmsMessageUtil {
             System.out.println(error.getData().get("Recommend"));
             com.aliyun.teautil.Common.assertAsString(error.message);
         }
-
-        return code;
+        return false;
     }
 }

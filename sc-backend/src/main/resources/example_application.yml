@@ -1,0 +1,26 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    type:               com.alibaba.druid.pool.DruidDataSource
+    username:
+    password:
+    url:
+  banner:
+    location: Banner.txt
+
+logging:
+  level:
+    com.sc.scbackend.controller: ERROR
+    # OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL
+
+# 你的 API accessKey 和相关配置
+SmsMessageUtilConfig:
+  accessKeyId:
+  accessKeySecret:
+  config_endpoint:
+  signName:
+  TemplateCode:
+

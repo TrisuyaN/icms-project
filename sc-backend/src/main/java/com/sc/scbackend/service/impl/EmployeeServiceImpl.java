@@ -1,5 +1,6 @@
 package com.sc.scbackend.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sc.scbackend.dao.EmployeeDao;
 import com.sc.scbackend.domain.Employee;
 import com.sc.scbackend.service.EmployeeService;
@@ -8,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.io.Serializable;
 
 @Component
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> implements EmployeeService {
 
     @Autowired
     private EmployeeDao employeeDao;
@@ -27,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean insertEmployee(Employee employee) {
+    public boolean save(Employee employee) {
         // 加密逻辑
         employee.setPassword(MD5Util.MD5(employee.getPassword()));
         employeeDao.insert(employee);
@@ -35,31 +36,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean updateEmployee(Employee employee) {
+    public boolean updateById(Employee employee) {
         // 加密逻辑
         employee.setPassword(MD5Util.MD5(employee.getPassword()));
-        employeeDao.update(employee);
+        employeeDao.updateById(employee);
         return employeeDao.getByAccount(employee.getAccount()) != null;
     }
-
-    @Override
-    public boolean deleteEmployee(Employee employee) {
-        employeeDao.delete(employee);
-        return employeeDao.getByAccount(employee.getAccount()) == null;
-    }
-
-    @Override
-    public Employee getById(String id) {
-        return employeeDao.getById(id);
-    }
-
-    @Override
-    public List<Employee> getAllEmployees() {
-        return employeeDao.getAll();
-    }
-
-//    @Override
-//    public Employee login(Employee employee) {
-//        return employeeDao.getByAccount(employee.getAccount());
-//    }
 }

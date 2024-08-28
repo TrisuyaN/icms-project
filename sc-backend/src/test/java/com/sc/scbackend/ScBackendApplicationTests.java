@@ -1,5 +1,7 @@
 package com.sc.scbackend;
 
+import cn.hutool.extra.emoji.EmojiUtil;
+import com.sc.scbackend.dao.EmployeeDao;
 import com.sc.scbackend.domain.Employee;
 import com.sc.scbackend.service.EmployeeService;
 import org.junit.jupiter.api.Test;
@@ -12,9 +14,19 @@ class ScBackendApplicationTests {
     @Autowired
     EmployeeService es;
 
+    @Autowired
+    EmployeeDao edao;
+
     @Test
-    public void getEmployeeByAccountTest() {
-        Employee e = es.getByAccount("zhangsan");
-        System.out.println(e.toString());
+    public void EmployeeServiceTest() {
+        System.out.println(es.getByAccount("suki"));
+        System.out.println(es.getByPhoneNumber("13812345678"));
+        Employee e = es.getByAccount("suki");
+        e.setName("senbaiiiiii");
+        System.out.println(e);
+//        es.update(e, null);
+
+        System.out.println(es.getById(e.getId()));
+
     }
 }

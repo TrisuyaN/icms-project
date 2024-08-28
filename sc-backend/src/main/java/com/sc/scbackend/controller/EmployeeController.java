@@ -15,7 +15,7 @@ public class EmployeeController {
 
     @PostMapping("register")
     public BaseResult addEmployee(@RequestBody Employee employee) {
-        boolean res =  employeeService.insertEmployee(employee);
+        boolean res =  employeeService.save(employee);
         if(res) {
             return BaseResult.success(employee);
         } else {
@@ -25,7 +25,7 @@ public class EmployeeController {
 
     @PostMapping({"update", "changePassword"})
     public BaseResult changeInfoEmployee(@RequestBody Employee employee) {
-        boolean res =  employeeService.updateEmployee(employee);
+        boolean res =  employeeService.updateById(employee);
         if(res) {
             return BaseResult.success(employee);
         } else {
@@ -35,7 +35,7 @@ public class EmployeeController {
 
     @PostMapping("delete")
     public BaseResult deleteEmployee(@RequestBody Employee employee) {
-        boolean res =  employeeService.deleteEmployee(employee);
+        boolean res =  employeeService.removeById(employee);
         if(res) {
             return BaseResult.success(employee);
         } else {

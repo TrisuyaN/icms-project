@@ -2,6 +2,9 @@ server:
   port: 8088
 
 spring:
+  application:
+    name: Intelligent Community Backend
+    description: "Intelligent Community Backend service APIs"
   datasource:
     driver-class-name:  com.mysql.cj.jdbc.Driver
     type:               com.alibaba.druid.pool.DruidDataSource

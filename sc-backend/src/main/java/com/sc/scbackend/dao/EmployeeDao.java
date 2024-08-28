@@ -1,6 +1,7 @@
 package com.sc.scbackend.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.yulichang.base.MPJBaseMapper;
 import com.sc.scbackend.domain.Employee;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Component
-public interface EmployeeDao extends BaseMapper<Employee> {
+public interface EmployeeDao extends MPJBaseMapper<Employee> {
 
     @Select("select * from employeeinfo where Account = #{account}")
     Employee getByAccount(@Param("account") String account);

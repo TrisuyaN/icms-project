@@ -3,15 +3,13 @@ package com.sc.scbackend.controller;
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.domain.Employee;
 import com.sc.scbackend.dto.SmsVerificationRequest;
-import com.sc.scbackend.enums.AccountStatus;
+import com.sc.scbackend.enums.EmployeeStatus;
 import com.sc.scbackend.service.EmployeeService;
 import com.sc.scbackend.utils.HutoolJWTUtil;
 import com.sc.scbackend.utils.MD5Util;
 import com.sc.scbackend.utils.SmsMessageService;
-import com.sc.scbackend.utils.SmsMessageUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -38,7 +36,7 @@ public class EmployeeLoginController {
             return BaseResult.fail("登录失败，账号不存在");
         } else if (!login_employee.getPassword().equals(MD5Util.MD5(employee.getPassword()))) {
             return BaseResult.fail("登录失败，密码不正确");
-        } else if (Objects.equals(login_employee.getStatus(), AccountStatus.INACTIVE.name())) {
+        } else if (Objects.equals(login_employee.getStatus(), EmployeeStatus.INACTIVE.name())) {
             return BaseResult.fail("登录失败，账号未激活或被封禁，请联系系统管理员");
         }
 
@@ -51,7 +49,7 @@ public class EmployeeLoginController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("token", token);
         resultMap.put("account", login_employee.getAccount());
-        resultMap.put("id", login_employee.getId());
+        resultMap.put("id", login_employee.getEmployeeId());
         resultMap.put("name", login_employee.getName());
         resultMap.put("position", login_employee.getPosition());
         resultMap.put("status", login_employee.getStatus());
@@ -66,7 +64,7 @@ public class EmployeeLoginController {
             return BaseResult.fail("登录失败，账号不存在");
         } else if (!login_employee.getPassword().equals(MD5Util.MD5(employee.getPassword()))) {
             return BaseResult.fail("登录失败，密码不正确");
-        } else if (Objects.equals(login_employee.getStatus(), AccountStatus.INACTIVE.name())) {
+        } else if (Objects.equals(login_employee.getStatus(), EmployeeStatus.INACTIVE.name())) {
             return BaseResult.fail("登录失败，账号未激活或被封禁，请联系系统管理员");
         }
 
@@ -79,7 +77,7 @@ public class EmployeeLoginController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("token", token);
         resultMap.put("account", login_employee.getAccount());
-        resultMap.put("id", login_employee.getId());
+        resultMap.put("id", login_employee.getEmployeeId());
         resultMap.put("name", login_employee.getName());
         resultMap.put("position", login_employee.getPosition());
         resultMap.put("status", login_employee.getStatus());
@@ -111,7 +109,7 @@ public class EmployeeLoginController {
 
         if (login_employee == null) {
             return BaseResult.fail("登录失败，账号不存在");
-        } else if (Objects.equals(login_employee.getStatus(), AccountStatus.INACTIVE.name())) {
+        } else if (Objects.equals(login_employee.getStatus(), EmployeeStatus.INACTIVE.name())) {
             return BaseResult.fail("登录失败，账号未激活或被封禁，请联系系统管理员");
         } else {
             boolean validateRes = smsMessageService.validateSmsCode(smsVerificationRequest.getPhoneNumber(), smsVerificationRequest.getCode());
@@ -129,7 +127,7 @@ public class EmployeeLoginController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("token", token);
         resultMap.put("account", login_employee.getAccount());
-        resultMap.put("id", login_employee.getId());
+        resultMap.put("id", login_employee.getEmployeeId());
         resultMap.put("name", login_employee.getName());
         resultMap.put("position", login_employee.getPosition());
         resultMap.put("status", login_employee.getStatus());

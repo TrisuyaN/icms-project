@@ -24,7 +24,7 @@ public class HutoolJWTUtil {
         payload.put(JWTPayload.NOT_BEFORE, now);
         //载荷
         payload.put("username", employee.getAccount());
-        payload.put("aid", employee.getId());
+        payload.put("aid", employee.getEmployeeId());
         String key = "com.sc.rurumuri";
         String token = JWTUtil.createToken(payload, key.getBytes());
         return token;

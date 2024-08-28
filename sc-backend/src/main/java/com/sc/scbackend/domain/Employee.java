@@ -1,15 +1,12 @@
 package com.sc.scbackend.domain;
 
-//import com.sc.scbackend.enums.AccountStatusImpl;
-//import com.sc.scbackend.enums.EmployeePositionImpl;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
+import com.sc.scbackend.enums.AccountStatus;
+import com.sc.scbackend.enums.EmployeePosition;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.stereotype.Component;
 
 @EqualsAndHashCode(callSuper = false)
 @TableName("employeeinfo")
@@ -20,11 +17,9 @@ public class Employee extends BaseEntity {
 
     private String name;
 
-    // TODO: 使用 Java 枚举直接映射
-    private String position;
+    private EmployeePosition position;
 
-    // TODO: 使用 Java 枚举直接映射
-    private String status;
+    private AccountStatus status;
 
     private String account;
 

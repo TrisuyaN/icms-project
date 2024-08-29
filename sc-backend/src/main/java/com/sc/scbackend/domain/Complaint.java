@@ -26,4 +26,6 @@ public class Complaint extends BaseEntity {
 
     private String handler;
 
+    private String title;
+
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
+import com.sc.scbackend.enums.RoadEnvironmentInspectionStatus;
 import com.sc.scbackend.enums.RoadEnvironmentInspectionType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,5 +22,11 @@ public class RoadEnvironmentInspection extends BaseEntity {
 
     @TableField(value = "InspectionType")
     private RoadEnvironmentInspectionType inspectionType;
+
+    @TableField(value = "Status")
+    private RoadEnvironmentInspectionStatus inspectionStatus;
+
+    @TableField(value = "carID")
+    private String carId;
 
 }

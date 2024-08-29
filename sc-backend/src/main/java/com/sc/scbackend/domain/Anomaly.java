@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.AnomalyCategory;
-import com.sc.scbackend.enums.AnomalyStatus;
 import com.sc.scbackend.enums.ProcessingStatus;
 import com.sc.scbackend.enums.UrgencyStatus;
 import lombok.Data;
@@ -24,8 +23,6 @@ public class Anomaly extends BaseEntity {
 
     @TableField(value = "LocationID")
     private int locationId;
-
-    private AnomalyStatus status;
 
     @TableField(value = "ErrorMessage")
     private String errorMessage;

@@ -9,4 +9,8 @@ public interface EmployeeService extends IService<Employee> {
 
     Employee getByPhoneNumber(String phoneNumber);
 
+    public boolean updateMD5PwdById(Employee employee);
+
+    Employee login(Employee employee);
+
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Component
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> implements EmployeeService {
@@ -28,6 +28,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> impl
     }
 
     @Override
+    public Employee login(Employee loginEmployee) {
+        // 更新最后登录的时间
+        loginEmployee.setLastLogin(new Timestamp(System.currentTimeMillis()));
+        employeeDao.updateById(loginEmployee);
+        return loginEmployee;
+    }
+
+    @Override
     public boolean save(Employee employee) {
         // 加密逻辑
         employee.setPassword(MD5Util.MD5(employee.getPassword()));
@@ -35,8 +43,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> impl
         return employeeDao.getByAccount(employee.getAccount()) != null;
     }
 
-    @Override
-    public boolean updateById(Employee employee) {
+
+    public boolean updateMD5PwdById(Employee employee) {
         // 加密逻辑
         employee.setPassword(MD5Util.MD5(employee.getPassword()));
         employeeDao.updateById(employee);

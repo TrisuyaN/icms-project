@@ -7,14 +7,14 @@ import java.io.Serializable;
 @Data
 public class BaseResult implements Serializable {
 
-    public static final int STATUS_SUCCESS = 200;
-    public static final int STATUS_FALL = 500;
+    public static final int STATUS_SUCCESS = 1;
+    public static final int STATUS_FAIL = -1;
 
     private int status;
 
     private String message;
 
-    private Object result;
+    private Object data;
 
     private long timestamp = System.currentTimeMillis();
 
@@ -22,7 +22,7 @@ public class BaseResult implements Serializable {
         BaseResult baseResult = new BaseResult();
         baseResult.setStatus(status);
         baseResult.setMessage(message);
-        baseResult.setResult(result);
+        baseResult.setData(result);
         return baseResult;
     }
 
@@ -46,16 +46,16 @@ public class BaseResult implements Serializable {
 
 
     public static BaseResult fail() {
-        return BaseResult.createResult(STATUS_FALL, "失败", null);
+        return BaseResult.createResult(STATUS_FAIL, "失败", null);
     }
 
 
     public static BaseResult fail(String message) {
-        return BaseResult.createResult(STATUS_FALL, message, null);
+        return BaseResult.createResult(STATUS_FAIL, message, null);
     }
 
 
     public static BaseResult fail(String message, Object result) {
-        return BaseResult.createResult(STATUS_FALL, message, result);
+        return BaseResult.createResult(STATUS_FAIL, message, result);
     }
 }

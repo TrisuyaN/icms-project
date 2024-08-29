@@ -48,7 +48,7 @@ public class SmsMessageUtil {
                 .setSignName(signName)
                 .setTemplateCode(templateCode)
 //                .setPhoneNumbers(phoneNumber)
-                .setPhoneNumbers("13654291969")
+                .setPhoneNumbers("13654291969") // TODO
                 .setTemplateParam("{\"code\":\"" + code + "\"}");
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         try {

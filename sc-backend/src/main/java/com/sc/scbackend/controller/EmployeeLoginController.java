@@ -2,8 +2,7 @@ package com.sc.scbackend.controller;
 
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.domain.Employee;
-import com.sc.scbackend.dto.LoginByAccountPasswordRequest;
-import com.sc.scbackend.dto.SmsVerificationRequest;
+import com.sc.scbackend.dto.*;
 import com.sc.scbackend.enums.EmployeeStatus;
 import com.sc.scbackend.service.EmployeeService;
 import com.sc.scbackend.utils.HutoolJWTUtil;
@@ -34,126 +33,119 @@ public class EmployeeLoginController {
     private static final String SMS_CODE_PREFIX = "sms_code:";
     private static final int EXPIRATION_TIME = 5; // 过期时间（分钟）
 
-    @PostMapping(path = "/login", consumes = "application/x-www-form-urlencoded")
+
+    @PostMapping(path = "login", consumes = "application/x-www-form-urlencoded")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400")
     })
-//    public ResponseEntity<BaseResult> loginByAccountAndPassword(@RequestParam String account,
-//                                                                @RequestParam String password) {
     public ResponseEntity<BaseResult> loginByAccountAndPassword(@ModelAttribute LoginByAccountPasswordRequest request) {
-        Employee login_employee = employeeService.getByAccount(request.getAccount());
-        if (login_employee == null) {
+        Employee loginEmployee = employeeService.getByAccount(request.getAccount());
+        if (loginEmployee == null) {
             return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号不存在"));
-        } else if (!login_employee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
-//        } else if (!login_employee.getPassword().equals(request.getPassword())) {
-            return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，密码不正确"));
+        } else if (!loginEmployee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
+//        } else if (!loginEmployee.getPassword().equals(request.getPassword())) {
+            return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号或密码不正确"));
         }
 
-        // 更新最后登录的时间
-        login_employee.setLastLogin(new Timestamp(System.currentTimeMillis()));
-        employeeService.updateById(login_employee);
+        // 登录
+        loginEmployee = employeeService.login(loginEmployee);
 
-        // 生成token
-        String token = HutoolJWTUtil.createToken(login_employee);
-
-        // 创建响应
-        // password 不应添加到 resultMap
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("token", token);
-        resultMap.put("account", login_employee.getAccount());
-        resultMap.put("id", login_employee.getEmployeeId());
-        resultMap.put("name", login_employee.getName());
-        resultMap.put("position", login_employee.getPosition().getValue());
-        resultMap.put("status", login_employee.getStatus().getValue());
-        resultMap.put("phone_number", login_employee.getPhoneNumber());
-        resultMap.put("hire_date", login_employee.getHireDate());
-        resultMap.put("last_login", login_employee.getLastLogin());
+        Map<String, Object> resultMap = generateLoginResultData(loginEmployee);
 
         return ResponseEntity.ok().body(BaseResult.success("登录成功", resultMap));
     }
 
-    @PostMapping("loginByPhoneAndPassword")
-    public BaseResult loginByPhoneNumberAndPassword(@RequestBody Employee employee, HttpServletRequest request) {
-        Employee login_employee = employeeService.getByPhoneNumber(employee.getPhoneNumber());
-        if (login_employee == null) {
-            return BaseResult.fail("登录失败，账号不存在");
-        } else if (!login_employee.getPassword().equals(MD5Util.MD5(employee.getPassword()))) {
-            return BaseResult.fail("登录失败，密码不正确");
-        } else if (Objects.equals(login_employee.getStatus(), EmployeeStatus.INACTIVE.name())) {
-            return BaseResult.fail("登录失败，账号未激活或被封禁，请联系系统管理员");
+    @PostMapping(path = "login_phone", consumes = "application/x-www-form-urlencoded")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400")
+    })
+    public ResponseEntity<BaseResult> loginByPhoneNumberAndPassword(@ModelAttribute LoginByPhoneNumberPasswordRequest request) {
+        Employee loginEmployee = employeeService.getByPhoneNumber(request.getPhoneNumber());
+        if (loginEmployee == null) {
+            return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号不存在"));
+        } else if (!loginEmployee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
+//        } else if (!loginEmployee.getPassword().equals(request.getPassword())) {
+            return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，手机号或密码不正确"));
         }
 
-        // 生成token
-        String token = HutoolJWTUtil.createToken(login_employee);
-        request.setAttribute("token", token);
+        // 登录
+        loginEmployee = employeeService.login(loginEmployee);
 
-        // 创建响应
-        // password 不应添加到 resultMap
-        Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("token", token);
-        resultMap.put("account", login_employee.getAccount());
-        resultMap.put("id", login_employee.getEmployeeId());
-        resultMap.put("name", login_employee.getName());
-        resultMap.put("position", login_employee.getPosition());
-        resultMap.put("status", login_employee.getStatus());
+        Map<String, Object> resultMap = generateLoginResultData(loginEmployee);
 
-        return BaseResult.success("登录成功", resultMap);
+        return ResponseEntity.ok().body(BaseResult.success("登录成功", resultMap));
     }
 
-    @PostMapping("sendSMSCode")
-    public BaseResult sendSMSCode(@RequestBody Employee employee) throws Exception {
-        String code;
-        Employee loginEmployee = employeeService.getByPhoneNumber(employee.getPhoneNumber());
+    @PostMapping(path = "send_code", consumes = "application/x-www-form-urlencoded")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400"),
+    })
+    public ResponseEntity<BaseResult> sendSMSCode(@ModelAttribute SendSMSCodeRequest request) throws Exception {
+        Employee loginEmployee = employeeService.getByPhoneNumber(request.getPhoneNumber());
         if (loginEmployee == null) {
-            return BaseResult.fail("登录失败，账号不存在");
+            return ResponseEntity.badRequest().body(BaseResult.fail("发送失败，账号不存在"));
         }
 
         boolean codeSendRes = smsMessageService.sendSmsCode(loginEmployee.getPhoneNumber());
         if (codeSendRes) {
-            return BaseResult.success();
+            return ResponseEntity.ok().body(BaseResult.success("发送成功"));
         } else {
-            return BaseResult.fail();
+            return ResponseEntity.internalServerError().body(BaseResult.fail("发送失败"));
         }
-
-
     }
 
-    @PostMapping("loginBySMSCode")
-    public BaseResult loginBySMSCode(@RequestBody SmsVerificationRequest smsVerificationRequest, HttpServletRequest request) {
-        Employee login_employee = employeeService.getByPhoneNumber(smsVerificationRequest.getPhoneNumber());
+    @PostMapping(path = "login_code", consumes = "application/x-www-form-urlencoded")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400"),
+    })
+    public ResponseEntity<BaseResult> loginBySMSCode(@ModelAttribute loginBySMSCodeRequest request) {
+        Employee login_employee = employeeService.getByPhoneNumber(request.getPhoneNumber());
 
         if (login_employee == null) {
-            return BaseResult.fail("登录失败，账号不存在");
-        } else if (Objects.equals(login_employee.getStatus(), EmployeeStatus.INACTIVE.name())) {
-            return BaseResult.fail("登录失败，账号未激活或被封禁，请联系系统管理员");
+            return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号不存在"));
         } else {
-            boolean validateRes = smsMessageService.validateSmsCode(smsVerificationRequest.getPhoneNumber(), smsVerificationRequest.getCode());
+            boolean validateRes = smsMessageService.validateSmsCode(request.getPhoneNumber(), request.getCode());
             if (!validateRes) {
-                return BaseResult.fail("登录失败，验证码错误");
+                return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，验证码错误"));
             }
         }
 
+        login_employee = employeeService.login(login_employee);
+        Map<String, Object> resultMap = generateLoginResultData(login_employee);
+
+        return ResponseEntity.ok().body(BaseResult.success("登录成功", resultMap));
+    }
+
+    // TODO
+    @PostMapping("logout")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200")
+    })
+    public ResponseEntity<BaseResult> loginOut() {
+        return ResponseEntity.ok().body(BaseResult.success("登出成功"));
+    }
+
+    private Map<String, Object> generateLoginResultData(Employee employee) {
         // 生成token
-        String token = HutoolJWTUtil.createToken(login_employee);
-        request.setAttribute("token", token);
+        String token = HutoolJWTUtil.createToken(employee);
 
-        // 创建响应
         // password 不应添加到 resultMap
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("token", token);
-        resultMap.put("account", login_employee.getAccount());
-        resultMap.put("id", login_employee.getEmployeeId());
-        resultMap.put("name", login_employee.getName());
-        resultMap.put("position", login_employee.getPosition());
-        resultMap.put("status", login_employee.getStatus());
+        resultMap.put("account", employee.getAccount());
+        resultMap.put("id", employee.getEmployeeId());
+        resultMap.put("name", employee.getName());
+        resultMap.put("position", employee.getPosition().getValue());
+        resultMap.put("status", employee.getStatus().getValue());
+        resultMap.put("phone_number", employee.getPhoneNumber());
+        resultMap.put("hire_date", employee.getHireDate());
+        resultMap.put("last_login", employee.getLastLogin());
 
-        return BaseResult.success("登录成功", resultMap);
+        return resultMap;
     }
 
-    @GetMapping("loginOut")
-    public BaseResult loginOut(HttpServletRequest request) {
-        request.getServletContext().removeAttribute("token");
-        return BaseResult.success("退出成功");
-    }
 }

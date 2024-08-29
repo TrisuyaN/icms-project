@@ -2,22 +2,27 @@ package com.sc.scbackend.controller;
 
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.domain.Employee;
+import com.sc.scbackend.dto.LoginByAccountPasswordRequest;
 import com.sc.scbackend.dto.SmsVerificationRequest;
 import com.sc.scbackend.enums.EmployeeStatus;
 import com.sc.scbackend.service.EmployeeService;
 import com.sc.scbackend.utils.HutoolJWTUtil;
 import com.sc.scbackend.utils.MD5Util;
 import com.sc.scbackend.utils.SmsMessageService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/sc/api/employee")
+@RequestMapping("/sc/api")
 public class EmployeeLoginController {
 
     @Autowired
@@ -29,32 +34,43 @@ public class EmployeeLoginController {
     private static final String SMS_CODE_PREFIX = "sms_code:";
     private static final int EXPIRATION_TIME = 5; // 过期时间（分钟）
 
-    @PostMapping("loginByAccountAndPassword")
-    public BaseResult loginByAccountAndPassword(@RequestBody Employee employee, HttpServletRequest request) {
-        Employee login_employee = employeeService.getByAccount(employee.getAccount());
+    @PostMapping(path = "/login", consumes = "application/x-www-form-urlencoded")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400")
+    })
+//    public ResponseEntity<BaseResult> loginByAccountAndPassword(@RequestParam String account,
+//                                                                @RequestParam String password) {
+    public ResponseEntity<BaseResult> loginByAccountAndPassword(@ModelAttribute LoginByAccountPasswordRequest request) {
+        Employee login_employee = employeeService.getByAccount(request.getAccount());
         if (login_employee == null) {
-            return BaseResult.fail("登录失败，账号不存在");
-        } else if (!login_employee.getPassword().equals(MD5Util.MD5(employee.getPassword()))) {
-            return BaseResult.fail("登录失败，密码不正确");
-        } else if (Objects.equals(login_employee.getStatus(), EmployeeStatus.INACTIVE.name())) {
-            return BaseResult.fail("登录失败，账号未激活或被封禁，请联系系统管理员");
+            return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号不存在"));
+        } else if (!login_employee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
+//        } else if (!login_employee.getPassword().equals(request.getPassword())) {
+            return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，密码不正确"));
         }
+
+        // 更新最后登录的时间
+        login_employee.setLastLogin(new Timestamp(System.currentTimeMillis()));
+        employeeService.updateById(login_employee);
 
         // 生成token
         String token = HutoolJWTUtil.createToken(login_employee);
-        request.setAttribute("token", token);
 
         // 创建响应
         // password 不应添加到 resultMap
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("token", token);
         resultMap.put("account", login_employee.getAccount());
         resultMap.put("id", login_employee.getEmployeeId());
         resultMap.put("name", login_employee.getName());
-        resultMap.put("position", login_employee.getPosition());
-        resultMap.put("status", login_employee.getStatus());
+        resultMap.put("position", login_employee.getPosition().getValue());
+        resultMap.put("status", login_employee.getStatus().getValue());
+        resultMap.put("phone_number", login_employee.getPhoneNumber());
+        resultMap.put("hire_date", login_employee.getHireDate());
+        resultMap.put("last_login", login_employee.getLastLogin());
 
-        return BaseResult.success("登录成功", resultMap);
+        return ResponseEntity.ok().body(BaseResult.success("登录成功", resultMap));
     }
 
     @PostMapping("loginByPhoneAndPassword")

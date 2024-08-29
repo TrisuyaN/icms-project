@@ -3,6 +3,7 @@ package com.sc.scbackend.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.CrowdCategory;
 import com.sc.scbackend.enums.SuspiciousStatus;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.sql.Timestamp;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("suspiciousinfo")
-public class SuspiciousInfo {
+public class SuspiciousInfo extends BaseEntity {
 
     @TableId(value = "InfoID")
     private String infoId;

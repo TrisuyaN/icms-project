@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.AnomalyCategory;
 import com.sc.scbackend.enums.AnomalyStatus;
 import com.sc.scbackend.enums.ProcessingStatus;
@@ -16,7 +17,7 @@ import java.sql.Timestamp;
 @EqualsAndHashCode(callSuper = false)
 @TableName("anomalies")
 @Data
-public class Anomaly {
+public class Anomaly extends BaseEntity {
 
     @TableId(value = "AnomalyID", type = IdType.INPUT)
     private String anomalyId;

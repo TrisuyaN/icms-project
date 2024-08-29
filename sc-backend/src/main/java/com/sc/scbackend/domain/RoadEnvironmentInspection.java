@@ -3,6 +3,7 @@ package com.sc.scbackend.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.RoadEnvironmentInspectionType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("roadenvironmentinspection")
-public class RoadEnvironmentInspection {
+public class RoadEnvironmentInspection extends BaseEntity {
 
     @TableId(value = "ID")
     private String id;

@@ -3,6 +3,7 @@ package com.sc.scbackend.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.UrgencyLevel;
 import com.sc.scbackend.enums.GasStatus;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("gasinfo")
-public class GasInfo {
+public class GasInfo extends BaseEntity {
 
     @TableId(value = "GasID")
     private String gasId;

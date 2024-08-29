@@ -3,6 +3,7 @@ package com.sc.scbackend.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sc.scbackend.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("propertyinfo")
-public class PropertyInfo {
+public class PropertyInfo extends BaseEntity {
 
     @TableId(value = "ID")
     private Integer id;

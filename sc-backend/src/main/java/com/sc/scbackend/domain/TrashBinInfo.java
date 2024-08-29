@@ -3,6 +3,7 @@ package com.sc.scbackend.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.TrashBinStatus;
 import com.sc.scbackend.enums.TrashBinType;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.sql.Timestamp;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("trashbininfo")
-public class TrashBinInfo {
+public class TrashBinInfo extends BaseEntity {
 
     @TableId(value = "BinID")
     private String binId;

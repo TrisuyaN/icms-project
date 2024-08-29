@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
+import com.sc.scbackend.enums.GreenEnvironmentStatus;
 import com.sc.scbackend.enums.MaintenanceType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,5 +22,8 @@ public class GreenEnvironmentInfo extends BaseEntity {
 
     @TableField(value = "MaintenanceType")
     private MaintenanceType maintenanceType;
+
+    @TableField(value = "Status")
+    private GreenEnvironmentStatus greenEnvironmentStatus;
 
 }

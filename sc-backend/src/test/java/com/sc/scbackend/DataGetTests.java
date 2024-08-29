@@ -164,10 +164,10 @@ public class DataGetTests {
         System.out.println(trashBinInfoService.getById("T100001"));
     }
 
-//    @Test
-//    public void TrashBinViolationServiceTest() {
-//        System.out.println(trashBinViolationService.getById("violationId"));
-//    }
+    @Test
+    public void TrashBinViolationServiceTest() {
+        System.out.println(trashBinViolationService.getById("violationId"));
+    }
 
     @Test
     public void VehicleServiceTest() {

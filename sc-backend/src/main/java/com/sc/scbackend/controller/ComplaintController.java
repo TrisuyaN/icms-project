@@ -1,8 +1,8 @@
 package com.sc.scbackend.controller;
 
 import com.sc.scbackend.base.BaseResult;
-import com.sc.scbackend.domain.Employee;
-import com.sc.scbackend.service.EmployeeService;
+import com.sc.scbackend.domain.Complaint;
+import com.sc.scbackend.service.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,27 +11,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sc/api/staff")
-public class EmployeeController {
+@RequestMapping("/sc/api/complaint")
+public class ComplaintController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private ComplaintService complaintService;
 
     @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<BaseResult> addEmployee(@ModelAttribute Employee employee) {
+    public ResponseEntity<BaseResult> addComplaint(@ModelAttribute Complaint complaint) {
 
-        // Employee save 默认保存 password 的 MD5 值
-        boolean res = employeeService.save(employee);
+        boolean res = complaintService.save(complaint);
         if (res) {
-            return ResponseEntity.ok().body(BaseResult.success("添加成功", employee));
+            return ResponseEntity.ok().body(BaseResult.success("添加成功", complaint));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }
     }
 
     @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<BaseResult> deleteEmployee(@ModelAttribute Employee employee) {
-        boolean res = employeeService.removeById(employee);
+    public ResponseEntity<BaseResult> deleteComplaint(@ModelAttribute Complaint complaint) {
+        boolean res = complaintService.removeById(complaint);
 
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("删除成功"));
@@ -41,15 +40,13 @@ public class EmployeeController {
     }
 
     @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<BaseResult> updateEmployee(@ModelAttribute Employee employee) {
+    public ResponseEntity<BaseResult> updateComplaint(@ModelAttribute Complaint complaint) {
 
-        // Employee updateMD5PwdById 保存 password 的 MD5 值
-        boolean res = employeeService.updateMD5PwdById(employee);
+        boolean res = complaintService.updateById(complaint);
         if (res) {
-            return ResponseEntity.ok().body(BaseResult.success("修改成功", employee));
+            return ResponseEntity.ok().body(BaseResult.success("修改成功", complaint));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }
     }
-
 }

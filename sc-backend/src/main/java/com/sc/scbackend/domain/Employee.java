@@ -9,6 +9,7 @@ import com.sc.scbackend.enums.EmployeeStatus;
 import com.sc.scbackend.enums.EmployeePosition;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class Employee extends BaseEntity {
     private String phoneNumber;
 
     @TableField(value = "HireDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date hireDate;
 
     @TableField(value = "LastLogin")

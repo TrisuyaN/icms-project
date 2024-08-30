@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -36,6 +37,7 @@ public class Member extends BaseEntity {
     private String occupation;
 
     @TableField(value = "birth_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @TableField(value = "gender")
@@ -51,6 +53,7 @@ public class Member extends BaseEntity {
     private String status;
 
     @TableField(value = "created_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
 
 }

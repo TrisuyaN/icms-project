@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -49,6 +50,7 @@ public class PropertyInfo extends BaseEntity {
     private String description;
 
     @TableField(value = "MoveInDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date moveInDate;
 
 }

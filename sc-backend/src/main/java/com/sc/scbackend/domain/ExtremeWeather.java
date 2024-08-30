@@ -7,6 +7,7 @@ import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.WarningType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -28,6 +29,7 @@ public class ExtremeWeather extends BaseEntity {
     private String responseMeasures;
 
     @TableField(value = "ExpectedTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expectedTime;
 
 }

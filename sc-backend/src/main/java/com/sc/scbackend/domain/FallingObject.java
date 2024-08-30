@@ -7,6 +7,7 @@ import com.sc.scbackend.base.BaseEntity;
 import com.sc.scbackend.enums.IncidentStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -30,12 +31,14 @@ public class FallingObject extends BaseEntity {
     private String injuryDescription;
 
     @TableField(value = "IncidentDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date incidentDate;
 
     @TableField(value = "handler")
     private String handler;
 
     @TableField(value = "handled_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date handledAt;
 
 }

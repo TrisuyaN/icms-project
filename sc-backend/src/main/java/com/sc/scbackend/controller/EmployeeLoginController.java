@@ -2,23 +2,25 @@ package com.sc.scbackend.controller;
 
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.domain.Employee;
-import com.sc.scbackend.dto.*;
-import com.sc.scbackend.enums.EmployeeStatus;
+import com.sc.scbackend.dto.LoginByAccountPasswordRequest;
+import com.sc.scbackend.dto.LoginByPhoneNumberPasswordRequest;
+import com.sc.scbackend.dto.SendSMSCodeRequest;
+import com.sc.scbackend.dto.loginBySMSCodeRequest;
 import com.sc.scbackend.service.EmployeeService;
 import com.sc.scbackend.utils.HutoolJWTUtil;
 import com.sc.scbackend.utils.MD5Util;
 import com.sc.scbackend.utils.SmsMessageService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/sc/api")

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -21,9 +22,11 @@ public class FireHydrant extends BaseEntity {
     private Integer locationId;
 
     @TableField(value = "LastInspectionDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastInspectionDate;
 
     @TableField(value = "NextInspectionDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date nextInspectionDate;
 
     @TableField(value = "Inspector")

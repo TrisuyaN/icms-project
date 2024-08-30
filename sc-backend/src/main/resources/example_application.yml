@@ -13,6 +13,8 @@ spring:
     url:
   banner:
     location: Banner.txt
+  jackson:
+    date-format: yyyy-MM-dd
   data:
     redis:
       # 连接地址

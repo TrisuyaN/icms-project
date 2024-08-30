@@ -17,7 +17,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addMember(@ModelAttribute Member member) {
 
         boolean res = memberService.save(member);
@@ -28,7 +28,7 @@ public class MemberController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteMember(@ModelAttribute Member member) {
         boolean res = memberService.removeById(member.getId());
 
@@ -39,7 +39,7 @@ public class MemberController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateMember(@ModelAttribute Member member) {
 
         boolean res = memberService.updateById(member);

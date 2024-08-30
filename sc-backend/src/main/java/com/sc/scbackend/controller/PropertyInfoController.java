@@ -17,7 +17,7 @@ public class PropertyInfoController {
     @Autowired
     private PropertyInfoService propertyInfoService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addPropertyInfo(@ModelAttribute PropertyInfo propertyInfo) {
 
         boolean res = propertyInfoService.save(propertyInfo);
@@ -28,7 +28,7 @@ public class PropertyInfoController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deletePropertyInfo(@ModelAttribute PropertyInfo propertyInfo) {
         boolean res = propertyInfoService.removeById(propertyInfo);
 
@@ -39,7 +39,7 @@ public class PropertyInfoController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updatePropertyInfo(@ModelAttribute PropertyInfo propertyInfo) {
 
         boolean res = propertyInfoService.updateById(propertyInfo);

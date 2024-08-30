@@ -17,7 +17,7 @@ public class ComplaintController {
     @Autowired
     private ComplaintService complaintService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addComplaint(@ModelAttribute Complaint complaint) {
 
         boolean res = complaintService.save(complaint);
@@ -28,7 +28,7 @@ public class ComplaintController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteComplaint(@ModelAttribute Complaint complaint) {
         boolean res = complaintService.removeById(complaint);
 
@@ -39,7 +39,7 @@ public class ComplaintController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateComplaint(@ModelAttribute Complaint complaint) {
 
         boolean res = complaintService.updateById(complaint);

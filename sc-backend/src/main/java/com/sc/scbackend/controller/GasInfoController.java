@@ -17,7 +17,7 @@ public class GasInfoController {
     @Autowired
     private GasInfoService gasInfoService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addGasInfo(@ModelAttribute GasInfo gasInfo) {
 
         boolean res = gasInfoService.save(gasInfo);
@@ -28,7 +28,7 @@ public class GasInfoController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteGasInfo(@ModelAttribute GasInfo gasInfo) {
         boolean res = gasInfoService.removeById(gasInfo);
 
@@ -39,7 +39,7 @@ public class GasInfoController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateGasInfo(@ModelAttribute GasInfo gasInfo) {
 
         boolean res = gasInfoService.updateById(gasInfo);

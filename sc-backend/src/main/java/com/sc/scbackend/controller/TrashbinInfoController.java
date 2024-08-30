@@ -17,7 +17,7 @@ public class TrashbinInfoController {
     @Autowired
     private TrashBinInfoService trashBinInfoService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addTrashbinInfo(@ModelAttribute TrashBinInfo trashBinInfo) {
 
         boolean res = trashBinInfoService.save(trashBinInfo);
@@ -28,7 +28,7 @@ public class TrashbinInfoController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteTrashbinInfo(@ModelAttribute TrashBinInfo trashBinInfo) {
         boolean res = trashBinInfoService.removeById(trashBinInfo);
 

@@ -17,7 +17,7 @@ public class FallingObjectController {
     @Autowired
     private FallingObjectService fallingObjectService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addFallingObject(@ModelAttribute FallingObject fallingObject) {
 
         boolean res = fallingObjectService.save(fallingObject);
@@ -28,7 +28,7 @@ public class FallingObjectController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteFallingObject(@ModelAttribute FallingObject fallingObject) {
         boolean res = fallingObjectService.removeById(fallingObject);
 
@@ -39,7 +39,7 @@ public class FallingObjectController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateFallingObject(@ModelAttribute FallingObject fallingObject) {
 
         boolean res = fallingObjectService.updateById(fallingObject);

@@ -17,7 +17,7 @@ public class LocationInfoController {
     @Autowired
     private LocationInfoService locationInfoService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addLocationInfo(@ModelAttribute LocationInfo locationInfo) {
 
         boolean res = locationInfoService.save(locationInfo);
@@ -28,7 +28,7 @@ public class LocationInfoController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteLocationInfo(@ModelAttribute LocationInfo locationInfo) {
         boolean res = locationInfoService.removeById(locationInfo);
 
@@ -39,7 +39,7 @@ public class LocationInfoController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateLocationInfo(@ModelAttribute LocationInfo locationInfo) {
 
         boolean res = locationInfoService.updateById(locationInfo);

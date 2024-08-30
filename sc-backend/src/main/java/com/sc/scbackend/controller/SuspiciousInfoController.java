@@ -17,7 +17,7 @@ public class SuspiciousInfoController {
     @Autowired
     private SuspiciousInfoService suspiciousInfoService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addSuspiciousInfo(@ModelAttribute SuspiciousInfo suspiciousInfo) {
 
         boolean res = suspiciousInfoService.save(suspiciousInfo);
@@ -28,7 +28,7 @@ public class SuspiciousInfoController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteSuspiciousInfo(@ModelAttribute SuspiciousInfo suspiciousInfo) {
         boolean res = suspiciousInfoService.removeById(suspiciousInfo);
 
@@ -39,7 +39,7 @@ public class SuspiciousInfoController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateSuspiciousInfo(@ModelAttribute SuspiciousInfo suspiciousInfo) {
 
         boolean res = suspiciousInfoService.updateById(suspiciousInfo);

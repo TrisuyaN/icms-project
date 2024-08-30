@@ -17,7 +17,7 @@ public class ManholeCoverController {
     @Autowired
     private ManholeCoverService manholeCoverService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addManholeCover(@ModelAttribute ManholeCover manholeCover) {
 
         boolean res = manholeCoverService.save(manholeCover);
@@ -28,7 +28,7 @@ public class ManholeCoverController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteManholeCover(@ModelAttribute ManholeCover manholeCover) {
         boolean res = manholeCoverService.removeById(manholeCover);
 
@@ -39,7 +39,7 @@ public class ManholeCoverController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateManholeCover(@ModelAttribute ManholeCover manholeCover) {
 
         boolean res = manholeCoverService.updateById(manholeCover);

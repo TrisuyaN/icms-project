@@ -17,7 +17,7 @@ public class ExtremeWeatherController {
     @Autowired
     private ExtremeWeatherService extremeWeatherService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addExtremeWeather(@ModelAttribute ExtremeWeather extremeWeather) {
 
         boolean res = extremeWeatherService.save(extremeWeather);
@@ -28,7 +28,7 @@ public class ExtremeWeatherController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteExtremeWeather(@ModelAttribute ExtremeWeather extremeWeather) {
         boolean res = extremeWeatherService.removeById(extremeWeather);
 
@@ -39,7 +39,7 @@ public class ExtremeWeatherController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateExtremeWeather(@ModelAttribute ExtremeWeather extremeWeather) {
 
         boolean res = extremeWeatherService.updateById(extremeWeather);

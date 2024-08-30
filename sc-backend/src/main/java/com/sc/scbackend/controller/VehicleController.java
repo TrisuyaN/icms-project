@@ -17,7 +17,7 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addVehicle(@ModelAttribute Vehicle vehicle) {
 
         boolean res = vehicleService.save(vehicle);
@@ -28,7 +28,7 @@ public class VehicleController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> delete(@ModelAttribute Vehicle vehicle) {
         boolean res = vehicleService.removeById(vehicle);
 

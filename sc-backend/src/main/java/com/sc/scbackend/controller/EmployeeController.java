@@ -17,7 +17,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addEmployee(@ModelAttribute Employee employee) {
 
         // Employee save 默认保存 password 的 MD5 值
@@ -29,7 +29,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteEmployee(@ModelAttribute Employee employee) {
         boolean res = employeeService.removeById(employee);
 
@@ -40,7 +40,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateEmployee(@ModelAttribute Employee employee) {
 
         // Employee updateMD5PwdById 保存 password 的 MD5 值

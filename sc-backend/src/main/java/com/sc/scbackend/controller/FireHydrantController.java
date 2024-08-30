@@ -17,7 +17,7 @@ public class FireHydrantController {
     @Autowired
     private FireHydrantService fireHydrantService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addFireHydrant(@ModelAttribute FireHydrant fireHydrant) {
 
         boolean res = fireHydrantService.save(fireHydrant);
@@ -28,7 +28,7 @@ public class FireHydrantController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteFireHydrant(@ModelAttribute FireHydrant fireHydrant) {
         boolean res = fireHydrantService.removeById(fireHydrant);
 
@@ -39,7 +39,7 @@ public class FireHydrantController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateFireHydrant(@ModelAttribute FireHydrant fireHydrant) {
 
         boolean res = fireHydrantService.updateById(fireHydrant);

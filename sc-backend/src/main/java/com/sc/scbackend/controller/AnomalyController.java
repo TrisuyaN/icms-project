@@ -17,7 +17,7 @@ public class AnomalyController {
     @Autowired
     private AnomalyService anomalyService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addAnomaly(@ModelAttribute Anomaly anomaly) {
 
         boolean res = anomalyService.save(anomaly);
@@ -28,7 +28,7 @@ public class AnomalyController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteAnomaly(@ModelAttribute Anomaly anomaly) {
         boolean res = anomalyService.removeById(anomaly);
 
@@ -39,7 +39,7 @@ public class AnomalyController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateAnomaly(@ModelAttribute Anomaly anomaly) {
 
         boolean res = anomalyService.updateById(anomaly);

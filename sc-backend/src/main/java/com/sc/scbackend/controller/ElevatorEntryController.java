@@ -17,7 +17,7 @@ public class ElevatorEntryController {
     @Autowired
     private ElevatorEntryService elevatorEntryService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addElevatorEntry(@ModelAttribute ElevatorEntry elevatorEntry) {
 
         boolean res = elevatorEntryService.save(elevatorEntry);
@@ -28,7 +28,7 @@ public class ElevatorEntryController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteElevatorEntry(@ModelAttribute ElevatorEntry elevatorEntry) {
         boolean res = elevatorEntryService.removeById(elevatorEntry);
 
@@ -39,7 +39,7 @@ public class ElevatorEntryController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateElevatorEntry(@ModelAttribute ElevatorEntry elevatorEntry) {
 
         boolean res = elevatorEntryService.updateById(elevatorEntry);

@@ -17,7 +17,7 @@ public class TrashBinViolationController {
     @Autowired
     private TrashBinViolationService trashBinViolationService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addMember(@ModelAttribute TrashBinViolation trashBinViolation) {
 
         boolean res = trashBinViolationService.save(trashBinViolation);
@@ -28,7 +28,7 @@ public class TrashBinViolationController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> delete(@ModelAttribute TrashBinViolation trashBinViolation) {
         boolean res = trashBinViolationService.removeById(trashBinViolation);
 
@@ -39,7 +39,7 @@ public class TrashBinViolationController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> update(@ModelAttribute TrashBinViolation trashBinViolation) {
 
         boolean res = trashBinViolationService.updateById(trashBinViolation);

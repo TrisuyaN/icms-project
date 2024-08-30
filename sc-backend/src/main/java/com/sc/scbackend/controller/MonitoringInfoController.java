@@ -17,7 +17,7 @@ public class MonitoringInfoController {
     @Autowired
     private MonitoringInfoService monitoringInfoService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addMonitoringInfo(@ModelAttribute MonitoringInfo monitoringInfo) {
 
         boolean res = monitoringInfoService.save(monitoringInfo);
@@ -28,7 +28,7 @@ public class MonitoringInfoController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteMonitoringInfo(@ModelAttribute MonitoringInfo monitoringInfo) {
         boolean res = monitoringInfoService.removeById(monitoringInfo);
 
@@ -39,7 +39,7 @@ public class MonitoringInfoController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateMonitoringInfo(@ModelAttribute MonitoringInfo monitoringInfo) {
 
         boolean res = monitoringInfoService.updateById(monitoringInfo);

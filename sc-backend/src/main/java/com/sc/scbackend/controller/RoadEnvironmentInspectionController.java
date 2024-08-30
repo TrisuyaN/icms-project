@@ -17,7 +17,7 @@ public class RoadEnvironmentInspectionController {
     @Autowired
     private RoadEnvironmentInspectionService roadEnvironmentInspectionService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addRoadEnvironmentInspection(@ModelAttribute RoadEnvironmentInspection roadEnvironmentInspection) {
 
         boolean res = roadEnvironmentInspectionService.save(roadEnvironmentInspection);
@@ -28,7 +28,7 @@ public class RoadEnvironmentInspectionController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteRoadEnvironmentInspection(@ModelAttribute RoadEnvironmentInspection roadEnvironmentInspection) {
         boolean res = roadEnvironmentInspectionService.removeById(roadEnvironmentInspection);
 
@@ -39,7 +39,7 @@ public class RoadEnvironmentInspectionController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateRoadEnvironmentInspection(@ModelAttribute RoadEnvironmentInspection roadEnvironmentInspection) {
 
         boolean res =  roadEnvironmentInspectionService.updateById(roadEnvironmentInspection);

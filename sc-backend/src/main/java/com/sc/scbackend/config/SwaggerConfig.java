@@ -26,6 +26,8 @@ public class SwaggerConfig {
     public OpenAPI openApi(@Value("${spring.application.name}") String applicationName, ObjectProvider<BuildProperties> buildProperties) {
         OpenAPI openAPI = new OpenAPI();
         openAPI.addServersItem(new Server().url("https://cn-jn-lt-plustmp1.natfrp.cloud:28088/"));
+        openAPI.addServersItem(new Server().url("http://localhost:8088/"));
+
         // add header
         Map<String, SecurityScheme> map = new HashMap<>();
         map.put("x-auth-token", new SecurityScheme().type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.HEADER).name("x-auth-token"));

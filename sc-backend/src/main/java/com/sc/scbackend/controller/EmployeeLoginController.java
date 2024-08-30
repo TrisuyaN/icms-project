@@ -36,7 +36,7 @@ public class EmployeeLoginController {
     private static final int EXPIRATION_TIME = 5; // 过期时间（分钟）
 
 
-    @PostMapping(path = "login", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "login")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400")
@@ -58,7 +58,7 @@ public class EmployeeLoginController {
         return ResponseEntity.ok().body(BaseResult.success("登录成功", resultMap));
     }
 
-    @PostMapping(path = "login_phone", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "login_phone")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400")
@@ -80,7 +80,7 @@ public class EmployeeLoginController {
         return ResponseEntity.ok().body(BaseResult.success("登录成功", resultMap));
     }
 
-    @PostMapping(path = "send_code", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "send_code")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400"),
@@ -99,7 +99,7 @@ public class EmployeeLoginController {
         }
     }
 
-    @PostMapping(path = "login_code", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "login_code")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400"),

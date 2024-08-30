@@ -17,7 +17,7 @@ public class GreenEnvironmentInfoController {
     @Autowired
     private GreenEnvironmentInfoService greenEnvironmentInfoService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addGreenEnvironmentInfo(@ModelAttribute GreenEnvironmentInfo greenEnvironmentInfo) {
 
         boolean res = greenEnvironmentInfoService.save(greenEnvironmentInfo);
@@ -28,7 +28,7 @@ public class GreenEnvironmentInfoController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteGreenEnvironmentInfo(@ModelAttribute GreenEnvironmentInfo greenEnvironmentInfo) {
         boolean res = greenEnvironmentInfoService.removeById(greenEnvironmentInfo);
 
@@ -39,7 +39,7 @@ public class GreenEnvironmentInfoController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateGreenEnvironmentInfo(@ModelAttribute GreenEnvironmentInfo greenEnvironmentInfo) {
 
         boolean res = greenEnvironmentInfoService.updateById(greenEnvironmentInfo);

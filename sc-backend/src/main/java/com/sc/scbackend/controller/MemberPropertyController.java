@@ -17,7 +17,7 @@ public class MemberPropertyController {
     @Autowired
     private MemberPropertyService memberPropertyService;
 
-    @PostMapping(path = "add", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "add")
     public ResponseEntity<BaseResult> addMemberProperty(@ModelAttribute MemberProperty memberProperty) {
 
         boolean res = memberPropertyService.save(memberProperty);
@@ -28,7 +28,7 @@ public class MemberPropertyController {
         }
     }
 
-    @PostMapping(path = "delete", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "delete")
     public ResponseEntity<BaseResult> deleteMemberProperty(@ModelAttribute MemberProperty memberProperty) {
         boolean res = memberPropertyService.removeById(memberProperty);
 
@@ -39,7 +39,7 @@ public class MemberPropertyController {
         }
     }
 
-    @PostMapping(path = "update", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path = "update")
     public ResponseEntity<BaseResult> updateMemberProperty(@ModelAttribute MemberProperty memberProperty) {
 
         boolean res = memberPropertyService.updateById(memberProperty);

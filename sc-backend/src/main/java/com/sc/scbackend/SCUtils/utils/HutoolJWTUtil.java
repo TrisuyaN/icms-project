@@ -1,4 +1,4 @@
-package com.sc.scbackend.utils;
+package com.sc.scbackend.SCUtils.utils;
 
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;

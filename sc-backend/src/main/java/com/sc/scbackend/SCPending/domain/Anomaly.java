@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @Data
 public class Anomaly extends BaseEntity {
 
-    @TableId(value = "AnomalyID", type = IdType.INPUT)
+    @TableId(value = "AnomalyID")
     private String anomalyId;
 
     @TableField(value = "LocationID")

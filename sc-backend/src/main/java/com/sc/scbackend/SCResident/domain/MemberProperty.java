@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @TableName("memberproperty")
 public class MemberProperty extends BaseEntity {
 
-    @TableId(value = "MemberID")
+    @TableField(value = "MemberID")
     private Integer memberId;
 
     @TableField(value = "PropertyID")

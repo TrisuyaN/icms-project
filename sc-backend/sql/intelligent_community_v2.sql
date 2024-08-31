@@ -105,34 +105,63 @@ UNLOCK TABLES;
 -- Table structure for table `employeeinfo`
 --
 
+-- 删除已有的 employeeinfo 表
 DROP TABLE IF EXISTS `employeeinfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
+-- 创建 employeeinfo 表
 CREATE TABLE `employeeinfo` (
-                                `EmployeeID` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                                `Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                                `Position` enum('超级管理员','保安','保洁') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                                `Status` enum('在职','离职','休假') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                                `Account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                                `Password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                                `PhoneNumber` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                                `HireDate` date NOT NULL,
-                                `LastLogin` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                                `EmployeeID` VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                `Name` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                `Position` ENUM('超级管理员','保安','保洁') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                `Status` ENUM('在职','离职','休假') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                `Account` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                `Password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                `PhoneNumber` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                `HireDate` DATE NOT NULL,
+                                `LastLogin` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
                                 PRIMARY KEY (`EmployeeID`) USING BTREE,
                                 UNIQUE KEY `Account` (`Account`) USING BTREE,
                                 UNIQUE KEY `PhoneNumber` (`PhoneNumber`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `employeeinfo`
---
+-- 删除已有的序列表
+DROP TABLE IF EXISTS `seq_employeeinfo`;
 
-LOCK TABLES `employeeinfo` WRITE;
-/*!40000 ALTER TABLE `employeeinfo` DISABLE KEYS */;
-INSERT INTO `employeeinfo` (`EmployeeID`, `Name`, `Position`, `Status`, `Account`, `Password`, `PhoneNumber`, `HireDate`, `LastLogin`) VALUES ('YG10001','张三','超级管理员','在职','zhangsan','hashedpassword123','13800138000','2024-08-01','2024-08-27 01:23:05'),('YG10002','李娜丽','保安','在职','guard1','password123','18532510002','2023-02-10','2024-08-28 01:40:08'),('YG10003','王芳静','保洁','在职','clean1','password123','18532510003','2023-03-05','2024-08-28 01:40:08'),('YG10004','刘强明','保安','休假','guard2','password123','18532510004','2023-01-22','2024-08-28 01:40:08'),('YG10005','赵丽娜','保洁','在职','clean2','password123','18532510005','2023-02-15','2024-08-28 01:40:08'),('YG10006','孙超亮','超级管理员','在职','admin2','password123','18532510006','2023-03-12','2024-08-28 01:40:08'),('YG10007','周敏霞','保安','离职','guard3','password123','18532510007','2023-01-30','2024-08-28 01:40:08'),('YG10008','吴涛鹏','保洁','在职','clean3','password123','18532510008','2023-02-20','2024-08-28 01:40:08'),('YG10009','郑爽洁','保安','休假','guard4','password123','18532510009','2023-03-01','2024-08-28 01:40:08'),('YG10010','王强波','超级管理员','在职','admin3','password123','18532510010','2023-01-12','2024-08-28 01:40:08'),('YG10011','刘梅红','保洁','在职','clean4','password123','18532510011','2023-02-18','2024-08-28 01:40:08'),('YG10012','李雷宏','保安','在职','guard5','password123','18532510012','2023-03-07','2024-08-28 01:40:08'),('YG10013','韩红彬','保洁','离职','clean5','password123','18532510013','2023-01-25','2024-08-28 01:40:08'),('YG10014','吴昊杰','保安','在职','guard6','password123','18532510014','2023-02-08','2024-08-28 01:40:08'),('YG10015','赵鑫豪','超级管理员','休假','admin4','password123','18532510015','2023-03-20','2024-08-28 01:40:08'),('YG10016','陈刚博','保洁','在职','clean6','password123','18532510016','2023-01-28','2024-08-28 01:40:08'),('YG10017','杨帆平','保安','在职','guard7','password123','18532510017','2023-02-15','2024-08-28 01:40:08'),('YG10018','刘敏文','保洁','休假','clean7','password123','18532510018','2023-03-09','2024-08-28 01:40:08'),('YG10019','王磊星','超级管理员','在职','admin5','password123','18532510019','2023-01-10','2024-08-28 01:40:08'),('YG10020','周婷娜','保安','在职','guard8','password123','18532510020','2023-02-22','2024-08-28 01:40:08'),('YG10021','李强国','保洁','在职','clean8','password123','18532510021','2023-03-12','2024-08-28 01:40:08'),('YG10022','赵敏宇','保安','离职','guard9','password123','18532510022','2023-01-19','2024-08-28 01:40:08'),('YG10023','孙杰亮','保洁','在职','clean9','password123','18532510023','2023-02-05','2024-08-28 01:40:08'),('YG10024','吴静欣','保安','在职','guard10','password123','18532510024','2023-03-15','2024-08-28 01:40:08'),('YG10025','郑军豪','保洁','休假','clean10','password123','18532510025','2023-01-30','2024-08-28 01:40:08'),('YG10026','李杰波','保安','在职','guard11','password123','18532510026','2023-02-20','2024-08-28 01:40:08'),('YG10027','杨静雨','保洁','离职','clean11','password123','18532510027','2023-03-02','2024-08-28 01:40:08'),('YG10028','刘辉伟','超级管理员','在职','admin6','password123','18532510028','2023-01-08','2024-08-28 01:40:08'),('YG10029','陈芳玲','保洁','在职','clean12','password123','18532510029','2023-02-10','2024-08-28 01:40:08'),('YG10030','赵阳辉','保安','休假','guard12','password123','18532510030','2023-03-18','2024-08-28 01:40:08'),('YG10099','张伟华','超级管理员','在职','admin1','password123','18532510001','2023-01-15','2024-08-28 01:40:08');
-/*!40000 ALTER TABLE `employeeinfo` ENABLE KEYS */;
-UNLOCK TABLES;
+-- 创建序列表
+CREATE TABLE `seq_employeeinfo` (
+                                    `next_id` INT NOT NULL
+);
+
+-- 初始化序列
+INSERT INTO `seq_employeeinfo` (`next_id`) VALUES (10000);
+
+-- 删除已有的触发器（如果存在）
+DROP TRIGGER IF EXISTS `before_insert_employeeinfo`;
+
+-- 创建触发器
+DELIMITER $$
+
+CREATE TRIGGER before_insert_employeeinfo
+    BEFORE INSERT ON `employeeinfo`
+    FOR EACH ROW
+BEGIN
+    DECLARE new_id INT;
+
+    -- 获取下一个 ID
+    UPDATE `seq_employeeinfo` SET next_id = LAST_INSERT_ID(next_id + 1);
+    SET new_id = LAST_INSERT_ID();
+
+    -- 设置 EmployeeID
+    SET NEW.EmployeeID = CONCAT('YG', LPAD(new_id, 5, '0'));
+END$$
+
+DELIMITER ;
+
+-- 插入示例数据
+INSERT INTO `employeeinfo` (`Name`, `Position`, `Status`, `Account`, `Password`, `PhoneNumber`, `HireDate`, `LastLogin`) VALUES
+                                                                                                                             ('张三', '超级管理员', '在职', 'zhangsan', 'hashedpassword123', '13800138000', '2024-08-01', '2024-08-27 01:23:05'),
+                                                                                                                             ('李娜丽', '保安', '在职', 'guard1', 'password123', '18532510002', '2023-02-10', '2024-08-28 01:40:08');
+
 
 --
 -- Table structure for table `extremeweather`

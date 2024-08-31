@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sc/api/staff")
 public class EmployeeController {
@@ -67,6 +69,16 @@ public class EmployeeController {
         boolean res = employeeService.updateMD5PwdById(updateEmployeeInfoRequest.getEmployeeId(), updateEmployeeInfoRequest.getPassword());
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功"));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllEmployee() {
+        List<Employee> res = employeeService.list();
+        if (res != null && !res.isEmpty()) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

@@ -6,7 +6,7 @@ import com.sc.scbackend.SCEmployee.domain.Employee;
 import com.sc.scbackend.SCEmployee.dto.AddEmployeeRequest;
 import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeInfoRequest;
 import com.sc.scbackend.SCEmployee.service.EmployeeService;
-import com.sc.scbackend.utils.MD5Util;
+import com.sc.scbackend.SCUtils.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;

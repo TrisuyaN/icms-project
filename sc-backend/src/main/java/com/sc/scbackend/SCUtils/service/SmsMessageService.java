@@ -1,5 +1,6 @@
-package com.sc.scbackend.utils;
+package com.sc.scbackend.SCUtils.service;
 
+import com.sc.scbackend.SCUtils.utils.SmsMessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

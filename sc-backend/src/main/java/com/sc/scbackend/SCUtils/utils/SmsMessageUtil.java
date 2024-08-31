@@ -1,4 +1,4 @@
-package com.sc.scbackend.utils;
+package com.sc.scbackend.SCUtils.utils;
 
 import com.aliyun.tea.TeaException;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,8 +47,7 @@ public class SmsMessageUtil {
         com.aliyun.dysmsapi20170525.models.SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setSignName(signName)
                 .setTemplateCode(templateCode)
-//                .setPhoneNumbers(phoneNumber)
-                .setPhoneNumbers("13654291969") // TODO
+                .setPhoneNumbers(phoneNumber)
                 .setTemplateParam("{\"code\":\"" + code + "\"}");
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         try {

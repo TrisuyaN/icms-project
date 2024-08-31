@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sc.scbackend.SCEmployee.dao.EmployeeDao;
 import com.sc.scbackend.SCEmployee.domain.Employee;
 import com.sc.scbackend.SCEmployee.dto.AddEmployeeRequest;
-import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeRequest;
+import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeInfoRequest;
 import com.sc.scbackend.SCEmployee.service.EmployeeService;
 import com.sc.scbackend.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +47,19 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> impl
     }
 
 
-    public boolean updateMD5PwdById(Employee employee) {
+    public boolean updateMD5PwdById(String id, String newPassword) {
+
+        Employee employee = employeeDao.selectById(id);
+
         // 加密逻辑
-        employee.setPassword(MD5Util.MD5(employee.getPassword()));
+        employee.setPassword(MD5Util.MD5(newPassword));
+        employeeDao.updateById(employee);
+        return employeeDao.getByAccount(employee.getAccount()) != null;
+    }
+
+    @Override
+    public boolean updateInfoById(Employee employee) {
+        employee.setPassword(employeeDao.selectById(employee.getEmployeeId()).getPassword()); // 使用原 password
         employeeDao.updateById(employee);
         return employeeDao.getByAccount(employee.getAccount()) != null;
     }
@@ -68,14 +78,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> impl
     }
 
     @Override
-    public Employee createFromUpdateEmployeeRequest(UpdateEmployeeRequest request) {
+    public Employee createFromUpdateEmployeeRequest(UpdateEmployeeInfoRequest request) {
         Employee employee = new Employee();
         employee.setEmployeeId(request.getEmployeeId());
         employee.setName(request.getName());
         employee.setPosition(request.getPosition());
         employee.setStatus(request.getStatus());
         employee.setAccount(request.getAccount());
-        employee.setPassword(request.getPassword());
+//        employee.setPassword(request.getPassword());
         employee.setPhoneNumber(request.getPhoneNumber());
         employee.setHireDate(request.getHireDate());
         employee.setLastLogin(new Timestamp(System.currentTimeMillis()));

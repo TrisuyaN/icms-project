@@ -1,6 +1,7 @@
 package com.sc.scbackend.SCEmployee.controller;
 
-import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeRequest;
+import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeInfoRequest;
+import com.sc.scbackend.SCEmployee.dto.UpdateEmployeePasswordRequest;
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.SCEmployee.domain.Employee;
 import com.sc.scbackend.SCEmployee.dto.AddEmployeeRequest;
@@ -47,15 +48,25 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping(path = "update")
-    public ResponseEntity<BaseResult> updateEmployee(@RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
+    @PostMapping(path = "update_info")
+    public ResponseEntity<BaseResult> updateEmployeeInfo(@RequestBody UpdateEmployeeInfoRequest updateEmployeeInfoRequest) {
 
-        Employee employee = employeeService.createFromUpdateEmployeeRequest(updateEmployeeRequest);
+        Employee employee = employeeService.createFromUpdateEmployeeRequest(updateEmployeeInfoRequest);
 
-        // Employee updateMD5PwdById 保存 password 的 MD5 值
-        boolean res = employeeService.updateMD5PwdById(employee);
+        boolean res = employeeService.updateInfoById(employee);
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功", employee));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "update_passwd")
+    public ResponseEntity<BaseResult> updateEmployeePassword(@RequestBody UpdateEmployeePasswordRequest updateEmployeeInfoRequest) {
+
+        boolean res = employeeService.updateMD5PwdById(updateEmployeeInfoRequest.getEmployeeId(), updateEmployeeInfoRequest.getPassword());
+        if (res) {
+            return ResponseEntity.ok().body(BaseResult.success("修改成功"));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

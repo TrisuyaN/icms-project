@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class UpdateEmployeeRequest {
+public class UpdateEmployeeInfoRequest {
 
     private String EmployeeId;
 
@@ -21,7 +21,7 @@ public class UpdateEmployeeRequest {
 
     private String account;
 
-    private String password;
+//    private String password;
 
     private String phoneNumber;
 

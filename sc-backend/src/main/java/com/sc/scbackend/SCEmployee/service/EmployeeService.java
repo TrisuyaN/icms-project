@@ -3,7 +3,7 @@ package com.sc.scbackend.SCEmployee.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sc.scbackend.SCEmployee.domain.Employee;
 import com.sc.scbackend.SCEmployee.dto.AddEmployeeRequest;
-import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeRequest;
+import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeInfoRequest;
 
 
 public interface EmployeeService extends IService<Employee> {
@@ -11,7 +11,9 @@ public interface EmployeeService extends IService<Employee> {
 
     Employee getByPhoneNumber(String phoneNumber);
 
-    public boolean updateMD5PwdById(Employee employee);
+    public boolean updateMD5PwdById(String id, String newPassword);
+
+    public boolean updateInfoById(Employee employee);
 
     Employee login(Employee employee);
 
@@ -20,6 +22,6 @@ public interface EmployeeService extends IService<Employee> {
     * */
     public Employee createFromAddEmployeeRequest(AddEmployeeRequest request);
 
-    public Employee createFromUpdateEmployeeRequest(UpdateEmployeeRequest request);
+    public Employee createFromUpdateEmployeeRequest(UpdateEmployeeInfoRequest request);
 
 }

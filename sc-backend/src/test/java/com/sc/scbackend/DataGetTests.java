@@ -1,6 +1,12 @@
 package com.sc.scbackend;
 
-import com.sc.scbackend.service.*;
+import com.sc.scbackend.SCEmployee.service.EmployeeService;
+import com.sc.scbackend.SCInfrastructure.service.*;
+import com.sc.scbackend.SCPending.service.*;
+import com.sc.scbackend.SCResident.service.MemberPropertyService;
+import com.sc.scbackend.SCResident.service.MemberService;
+import com.sc.scbackend.SCResident.service.PropertyInfoService;
+import com.sc.scbackend.SCResident.service.VehicleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTPayload;
 import cn.hutool.jwt.JWTUtil;
-import com.sc.scbackend.domain.Employee;
+import com.sc.scbackend.SCEmployee.domain.Employee;
 
 import java.util.HashMap;
 import java.util.Map;

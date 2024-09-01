@@ -8,6 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SelectEmployeeRequest {
+
+    private String account;
+
     private String name;
 
     private EmployeePosition position;

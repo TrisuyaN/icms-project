@@ -89,6 +89,9 @@ public class EmployeeController {
     public ResponseEntity<BaseResult> selectBy(@RequestBody SelectEmployeeRequest selectEmployeeRequest) {
 
         QueryWrapper<Employee> queryWrapper = new QueryWrapper<>();
+        if (selectEmployeeRequest.getAccount() != null) {
+            queryWrapper.eq("Account", selectEmployeeRequest.getAccount());
+        }
         if (selectEmployeeRequest.getPosition() != null) {
             queryWrapper.eq("Position", selectEmployeeRequest.getPosition());
         }

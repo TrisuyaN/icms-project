@@ -61,4 +61,18 @@ public class RoadEnvironmentInspectionController {
         }
     }
 
+    @PostMapping(path = "car")
+    public ResponseEntity<BaseResult> selectCarOccupation() {
+
+        QueryWrapper<RoadEnvironmentInspection> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("InspectionType", RoadEnvironmentInspectionType.OBSTRUCTION_REMOVAL);
+
+        List<RoadEnvironmentInspection> res = roadEnvironmentInspectionService.list(queryWrapper);
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
 }

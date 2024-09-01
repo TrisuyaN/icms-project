@@ -1847,6 +1847,22 @@ CREATE TABLE `trashbinviolations`
 LOCK TABLES `trashbinviolations` WRITE;
 /*!40000 ALTER TABLE `trashbinviolations`
     DISABLE KEYS */;
+INSERT INTO `trashbinviolations` (`BinID`, `ViolatorID`, `ViolationType`, `ViolationDate`)
+VALUES ('T000001', 30001, 'Improper Disposal', '2024-01-15 10:00:00'),
+       ('T000002', 30002, 'Damage', '2024-02-20 14:30:00'),
+       ('T000003', 30003, 'Other', '2024-03-05 09:15:00'),
+       ('T000004', 30004, 'Improper Disposal', '2024-04-10 11:45:00'),
+       ('T000005', 30005, 'Damage', '2024-05-25 16:00:00'),
+       ('T000006', 30006, 'Other', '2024-06-30 08:30:00'),
+       ('T000007', 30007, 'Improper Disposal', '2024-07-15 12:00:00'),
+       ('T000008', 30008, 'Damage', '2024-08-20 15:00:00'),
+       ('T000009', 30009, 'Other', '2024-09-10 13:00:00'),
+       ('T000001', 30001, 'Improper Disposal', '2024-10-01 09:00:00'),
+       ('T000002', 30002, 'Damage', '2024-10-02 10:30:00'),
+       ('T000003', 30003, 'Other', '2024-10-03 11:15:00'),
+       ('T000004', 30004, 'Improper Disposal', '2024-10-04 12:45:00'),
+       ('T000005', 30005, 'Damage', '2024-10-05 13:30:00'),
+       ('T000006', 30006, 'Other', '2024-10-06 14:00:00');
 /*!40000 ALTER TABLE `trashbinviolations`
     ENABLE KEYS */;
 UNLOCK TABLES;

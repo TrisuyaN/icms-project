@@ -1,11 +1,16 @@
 package com.sc.scbackend.SCResident.controller;
 
-import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.SCResident.domain.Member;
+import com.sc.scbackend.SCResident.dto.MemberPropertyInfoDTO;
+import com.sc.scbackend.SCResident.dto.SelectMemberPropertyInfoByConditionRequest;
 import com.sc.scbackend.SCResident.service.MemberService;
+import com.sc.scbackend.base.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -52,6 +57,23 @@ public class MemberController {
     @PostMapping(path = "findall")
     public ResponseEntity<BaseResult> selectAllMember() {
         List<Member> res = memberService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findbycondition")
+    public ResponseEntity<BaseResult> selectMemberPropertyInfoByCondition(@RequestBody SelectMemberPropertyInfoByConditionRequest selectMemberPropertyInfoByConditionRequest) {
+
+        List<MemberPropertyInfoDTO> res = memberService.getMemberPropertyInfoByConditions(
+                selectMemberPropertyInfoByConditionRequest.getName(),
+                selectMemberPropertyInfoByConditionRequest.getBuildingNumber(),
+                selectMemberPropertyInfoByConditionRequest.getUnit(),
+                selectMemberPropertyInfoByConditionRequest.getFloorNumber(),
+                selectMemberPropertyInfoByConditionRequest.getRoomNumber());
+
         if (res != null) {
             return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {

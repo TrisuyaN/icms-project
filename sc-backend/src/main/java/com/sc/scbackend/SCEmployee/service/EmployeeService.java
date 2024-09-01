@@ -11,17 +11,17 @@ public interface EmployeeService extends IService<Employee> {
 
     Employee getByPhoneNumber(String phoneNumber);
 
-    public boolean updateMD5PwdById(String id, String newPassword);
+    boolean updateMD5PwdById(String id, String newPassword);
 
-    public boolean updateInfoById(Employee employee);
+    boolean updateInfoById(Employee employee);
 
     Employee login(Employee employee);
 
     /*
-    * 根据创建账户请求自动生成时间相关字段，生成 Employee 实体。
-    * */
-    public Employee createFromAddEmployeeRequest(AddEmployeeRequest request);
+     * 根据创建账户请求自动生成时间相关字段，生成 Employee 实体。
+     * */
+    Employee createFromAddEmployeeRequest(AddEmployeeRequest request);
 
-    public Employee createFromUpdateEmployeeRequest(UpdateEmployeeInfoRequest request);
+    Employee createFromUpdateEmployeeRequest(UpdateEmployeeInfoRequest request);
 
 }

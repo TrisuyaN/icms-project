@@ -1,4 +1,4 @@
-package com.sc.scbackend.SCPending.service.impl;
+package com.sc.scbackend.SCInfrastructure.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sc.scbackend.SCInfrastructure.dao.FireHydrantDao;

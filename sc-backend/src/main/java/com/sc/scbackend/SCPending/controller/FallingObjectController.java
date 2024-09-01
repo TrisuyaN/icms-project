@@ -1,5 +1,7 @@
 package com.sc.scbackend.SCPending.controller;
 
+import com.sc.scbackend.SCPending.dto.FallingObjectIncidentDTO;
+import com.sc.scbackend.SCPending.dto.SelectFallingObjectIncidentByConditionRequest;
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.SCPending.domain.FallingObject;
 import com.sc.scbackend.SCPending.service.FallingObjectService;
@@ -52,6 +54,22 @@ public class FallingObjectController {
     @PostMapping(path = "findall")
     public ResponseEntity<BaseResult> selectAllFallingObject() {
         List<FallingObject> res = fallingObjectService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findbycondition")
+    public ResponseEntity<BaseResult> selectFallingObjectIncidentByCondition(@RequestBody SelectFallingObjectIncidentByConditionRequest selectFallingObjectIncidentByConditionRequest) {
+
+        // TODO：非空检查
+        List<FallingObjectIncidentDTO> res = fallingObjectService.getFallingObjectIncident(
+                selectFallingObjectIncidentByConditionRequest.getFallingObjectStatus(),
+                selectFallingObjectIncidentByConditionRequest.getMemberName()
+        );
+
         if (res != null) {
             return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {

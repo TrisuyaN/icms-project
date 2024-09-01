@@ -1,15 +1,16 @@
 package com.sc.scbackend.SCEmployee.controller;
 
-import com.sc.scbackend.SCEmployee.dto.UpdateEmployeeInfoRequest;
-import com.sc.scbackend.SCEmployee.dto.UpdateEmployeePasswordRequest;
-import com.sc.scbackend.base.BaseResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sc.scbackend.SCEmployee.domain.Employee;
-import com.sc.scbackend.SCEmployee.dto.AddEmployeeRequest;
-import com.sc.scbackend.SCEmployee.dto.DeleteEmployeeRequest;
+import com.sc.scbackend.SCEmployee.dto.*;
 import com.sc.scbackend.SCEmployee.service.EmployeeService;
+import com.sc.scbackend.base.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -77,6 +78,28 @@ public class EmployeeController {
     @PostMapping(path = "findall")
     public ResponseEntity<BaseResult> selectAllEmployee() {
         List<Employee> res = employeeService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findbycondition")
+    public ResponseEntity<BaseResult> selectBy(@RequestBody SelectEmployeeRequest selectEmployeeRequest) {
+
+        QueryWrapper<Employee> queryWrapper = new QueryWrapper<>();
+        if (selectEmployeeRequest.getPosition() != null) {
+            queryWrapper.eq("Position", selectEmployeeRequest.getPosition());
+        }
+        if (selectEmployeeRequest.getName() != null) {
+            queryWrapper.like("Name", selectEmployeeRequest.getName());
+        }
+        if (selectEmployeeRequest.getStatus() != null) {
+            queryWrapper.eq("Status", selectEmployeeRequest.getStatus());
+        }
+
+        List<Employee> res = employeeService.list(queryWrapper);
         if (res != null) {
             return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {

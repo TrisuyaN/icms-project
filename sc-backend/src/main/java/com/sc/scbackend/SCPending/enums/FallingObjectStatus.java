@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum IncidentStatus implements IEnum<String> {
+public enum FallingObjectStatus implements IEnum<String> {
     NOT_OCCURRED("未发生", "未发生"),
     OCCURRED("已发生", "已发生");
 

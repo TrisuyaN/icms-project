@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sc.scbackend.base.BaseEntity;
-import com.sc.scbackend.SCPending.enums.IncidentStatus;
+import com.sc.scbackend.SCPending.enums.FallingObjectStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,7 +19,7 @@ public class FallingObject extends BaseEntity {
     @TableId(value = "IncidentID")
     private String incidentId;
 
-    private IncidentStatus status;
+    private FallingObjectStatus status;
 
     @TableField(value = "PropertyID")
     private Integer propertyId;

@@ -1497,11 +1497,11 @@ CREATE TABLE `roadenvironmentinspection`
     `PointID`        INT                                                                                                      NOT NULL,
     `InspectionType` ENUM ('清洁', '障碍物清除', '流浪猫狗出没', '汽车占道') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
     `Status`         VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-    `carID`          VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+    `carID`          int(5) unsigned zerofill                                     DEFAULT NULL,
     PRIMARY KEY (`ID`) USING BTREE,
     KEY `PointID` (`PointID`) USING BTREE,
     KEY `carenvir` (`carID`) USING BTREE,
-    CONSTRAINT `carenvir` FOREIGN KEY (`carID`) REFERENCES `vehicles` (`license_plate`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT `carenvir` FOREIGN KEY (`carID`) REFERENCES `vehicles` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `roadenvironmentinspection_ibfk_1` FOREIGN KEY (`PointID`) REFERENCES `locationinfo` (`PointID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -1546,7 +1546,7 @@ DELIMITER ;
 
 -- 插入示例数据（不包含 ID）
 INSERT INTO `roadenvironmentinspection` (`PointID`, `InspectionType`, `Status`, `carID`)
-VALUES (40001, '汽车占道', '待处理', '京B23456'),
+VALUES (40001, '汽车占道', '待处理', NULL),
        (40002, '流浪猫狗出没', '处理中', NULL),
        (40003, '清洁', '已处理', NULL),
        (40004, '障碍物清除', '待处理', NULL),
@@ -1563,7 +1563,7 @@ VALUES (40001, '汽车占道', '待处理', '京B23456'),
        (40005, '清洁', '已处理', NULL),
        (40006, '障碍物清除', '待处理', NULL),
        (40007, '流浪猫狗出没', '处理中', NULL),
-       (40008, '汽车占道', '已处理', '京E56789'),
+       (40008, '汽车占道', '已处理', NULL),
        (40009, '清洁', '待处理', NULL),
        (40010, '障碍物清除', '处理中', NULL),
        (40001, '清洁', '已处理', NULL),

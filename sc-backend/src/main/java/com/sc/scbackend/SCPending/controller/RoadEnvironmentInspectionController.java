@@ -1,11 +1,15 @@
 package com.sc.scbackend.SCPending.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sc.scbackend.SCPending.enums.RoadEnvironmentInspectionType;
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.SCPending.domain.RoadEnvironmentInspection;
 import com.sc.scbackend.SCPending.service.RoadEnvironmentInspectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sc/api/roadenvir")
@@ -46,4 +50,15 @@ public class RoadEnvironmentInspectionController {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }
     }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllRoadEnvironmentInspection() {
+        List<RoadEnvironmentInspection> res = roadEnvironmentInspectionService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
 }

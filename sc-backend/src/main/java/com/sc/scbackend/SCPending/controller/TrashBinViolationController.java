@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sc/api/Garbage_sorting")
 public class TrashBinViolationController {
@@ -42,6 +44,16 @@ public class TrashBinViolationController {
         boolean res = trashBinViolationService.updateById(trashBinViolation);
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功", trashBinViolation));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllTrashBinViolation() {
+        List<TrashBinViolation> res = trashBinViolationService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

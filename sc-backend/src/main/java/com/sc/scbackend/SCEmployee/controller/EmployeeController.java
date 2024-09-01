@@ -77,7 +77,7 @@ public class EmployeeController {
     @PostMapping(path = "findall")
     public ResponseEntity<BaseResult> selectAllEmployee() {
         List<Employee> res = employeeService.list();
-        if (res != null && !res.isEmpty()) {
+        if (res != null) {
             return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());

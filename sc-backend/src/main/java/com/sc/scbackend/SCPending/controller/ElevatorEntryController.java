@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sc/api/elevatorwarning")
 public class ElevatorEntryController {
@@ -42,6 +44,16 @@ public class ElevatorEntryController {
         boolean res = elevatorEntryService.updateById(elevatorEntry);
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功", elevatorEntry));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllElevatorEntry() {
+        List<ElevatorEntry> res = elevatorEntryService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

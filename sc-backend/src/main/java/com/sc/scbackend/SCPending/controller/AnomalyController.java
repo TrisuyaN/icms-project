@@ -1,11 +1,15 @@
 package com.sc.scbackend.SCPending.controller;
 
+import com.sc.scbackend.SCInfrastructure.domain.LocationInfo;
+import com.sc.scbackend.SCInfrastructure.domain.TrashBinInfo;
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.SCPending.domain.Anomaly;
 import com.sc.scbackend.SCPending.service.AnomalyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sc/api/ano")
@@ -42,6 +46,16 @@ public class AnomalyController {
         boolean res = anomalyService.updateById(anomaly);
         if(res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功", anomaly));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllAnomaly() {
+        List<Anomaly> res = anomalyService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

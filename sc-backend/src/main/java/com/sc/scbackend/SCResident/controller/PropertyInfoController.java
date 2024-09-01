@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sc/api/house")
 public class PropertyInfoController {
@@ -42,6 +44,16 @@ public class PropertyInfoController {
         boolean res = propertyInfoService.updateById(propertyInfo);
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功", propertyInfo));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllPropertyInfo() {
+        List<PropertyInfo> res = propertyInfoService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

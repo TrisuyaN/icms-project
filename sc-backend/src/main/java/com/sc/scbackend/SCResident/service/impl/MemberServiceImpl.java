@@ -26,8 +26,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, Member> implements
         wrapper.selectAll(Member.class)
                 .selectAll(MemberProperty.class)
                 .selectAll(PropertyInfo.class)
-                .leftJoin(Member.class, Member::getId, MemberProperty::getMemberId)
-                .leftJoin(MemberProperty.class, MemberProperty::getPropertyId, PropertyInfo::getId);
+                .leftJoin(MemberProperty.class, MemberProperty::getMemberId, Member::getId)
+                .leftJoin(PropertyInfo.class, PropertyInfo::getId, MemberProperty::getPropertyId);
         if (name != null) {
             wrapper.like(Member::getName, name);
         }

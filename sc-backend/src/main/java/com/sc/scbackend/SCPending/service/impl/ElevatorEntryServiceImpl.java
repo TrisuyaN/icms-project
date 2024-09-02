@@ -27,7 +27,7 @@ public class ElevatorEntryServiceImpl extends ServiceImpl<ElevatorEntryDao, Elev
                 wrapper
                         .selectAll(ElevatorEntry.class)
                         .selectAll(Member.class)
-                        .leftJoin(ElevatorEntry.class, ElevatorEntry::getMemberId, Member::getId)
+                        .leftJoin(Member.class, Member::getId, ElevatorEntry::getMemberId)
                         .eq(Member::getName, memberName)
         );
 

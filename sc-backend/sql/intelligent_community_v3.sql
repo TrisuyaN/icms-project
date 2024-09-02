@@ -1497,11 +1497,11 @@ CREATE TABLE `roadenvironmentinspection`
     `PointID`        INT                                                                                                      NOT NULL,
     `InspectionType` ENUM ('清洁', '障碍物清除', '流浪猫狗出没', '汽车占道') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
     `Status`         VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-    `carID`          VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+    `carID`          int(5) unsigned zerofill                                     DEFAULT NULL,
     PRIMARY KEY (`ID`) USING BTREE,
     KEY `PointID` (`PointID`) USING BTREE,
     KEY `carenvir` (`carID`) USING BTREE,
-    CONSTRAINT `carenvir` FOREIGN KEY (`carID`) REFERENCES `vehicles` (`license_plate`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT `carenvir` FOREIGN KEY (`carID`) REFERENCES `vehicles` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `roadenvironmentinspection_ibfk_1` FOREIGN KEY (`PointID`) REFERENCES `locationinfo` (`PointID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -1546,7 +1546,7 @@ DELIMITER ;
 
 -- 插入示例数据（不包含 ID）
 INSERT INTO `roadenvironmentinspection` (`PointID`, `InspectionType`, `Status`, `carID`)
-VALUES (40001, '汽车占道', '待处理', '京B23456'),
+VALUES (40001, '汽车占道', '待处理', NULL),
        (40002, '流浪猫狗出没', '处理中', NULL),
        (40003, '清洁', '已处理', NULL),
        (40004, '障碍物清除', '待处理', NULL),
@@ -1563,7 +1563,7 @@ VALUES (40001, '汽车占道', '待处理', '京B23456'),
        (40005, '清洁', '已处理', NULL),
        (40006, '障碍物清除', '待处理', NULL),
        (40007, '流浪猫狗出没', '处理中', NULL),
-       (40008, '汽车占道', '已处理', '京E56789'),
+       (40008, '汽车占道', '已处理', NULL),
        (40009, '清洁', '待处理', NULL),
        (40010, '障碍物清除', '处理中', NULL),
        (40001, '清洁', '已处理', NULL),
@@ -1847,6 +1847,22 @@ CREATE TABLE `trashbinviolations`
 LOCK TABLES `trashbinviolations` WRITE;
 /*!40000 ALTER TABLE `trashbinviolations`
     DISABLE KEYS */;
+INSERT INTO `trashbinviolations` (`BinID`, `ViolatorID`, `ViolationType`, `ViolationDate`)
+VALUES ('T000001', 30001, 'Improper Disposal', '2024-01-15 10:00:00'),
+       ('T000002', 30002, 'Damage', '2024-02-20 14:30:00'),
+       ('T000003', 30003, 'Other', '2024-03-05 09:15:00'),
+       ('T000004', 30004, 'Improper Disposal', '2024-04-10 11:45:00'),
+       ('T000005', 30005, 'Damage', '2024-05-25 16:00:00'),
+       ('T000006', 30006, 'Other', '2024-06-30 08:30:00'),
+       ('T000007', 30007, 'Improper Disposal', '2024-07-15 12:00:00'),
+       ('T000008', 30008, 'Damage', '2024-08-20 15:00:00'),
+       ('T000009', 30009, 'Other', '2024-09-10 13:00:00'),
+       ('T000001', 30001, 'Improper Disposal', '2024-10-01 09:00:00'),
+       ('T000002', 30002, 'Damage', '2024-10-02 10:30:00'),
+       ('T000003', 30003, 'Other', '2024-10-03 11:15:00'),
+       ('T000004', 30004, 'Improper Disposal', '2024-10-04 12:45:00'),
+       ('T000005', 30005, 'Damage', '2024-10-05 13:30:00'),
+       ('T000006', 30006, 'Other', '2024-10-06 14:00:00');
 /*!40000 ALTER TABLE `trashbinviolations`
     ENABLE KEYS */;
 UNLOCK TABLES;

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sc/api/")
 public class MemberPropertyController {
@@ -42,6 +44,16 @@ public class MemberPropertyController {
         boolean res = memberPropertyService.updateById(memberProperty);
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功", memberProperty));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllMemberProperty() {
+        List<MemberProperty> res = memberPropertyService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

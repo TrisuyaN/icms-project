@@ -1,11 +1,15 @@
 package com.sc.scbackend.SCPending.controller;
 
+import com.sc.scbackend.SCPending.dto.FallingObjectIncidentDTO;
+import com.sc.scbackend.SCPending.dto.SelectFallingObjectIncidentByConditionRequest;
 import com.sc.scbackend.base.BaseResult;
 import com.sc.scbackend.SCPending.domain.FallingObject;
 import com.sc.scbackend.SCPending.service.FallingObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sc/api/warndanger")
@@ -42,6 +46,32 @@ public class FallingObjectController {
         boolean res = fallingObjectService.updateById(fallingObject);
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功", fallingObject));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllFallingObject() {
+        List<FallingObject> res = fallingObjectService.list();
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "findbycondition")
+    public ResponseEntity<BaseResult> selectFallingObjectIncidentByCondition(@RequestBody SelectFallingObjectIncidentByConditionRequest selectFallingObjectIncidentByConditionRequest) {
+
+        // TODO：非空检查
+        List<FallingObjectIncidentDTO> res = fallingObjectService.getFallingObjectIncident(
+                selectFallingObjectIncidentByConditionRequest.getFallingObjectStatus(),
+                selectFallingObjectIncidentByConditionRequest.getMemberName()
+        );
+
+        if (res != null) {
+            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }

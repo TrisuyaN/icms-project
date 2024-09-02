@@ -27,6 +27,7 @@ public class SwaggerConfig {
         OpenAPI openAPI = new OpenAPI();
         openAPI.addServersItem(new Server().url("https://frp-bus.top:28088/"));
         openAPI.addServersItem(new Server().url("http://localhost:8088/"));
+        openAPI.addServersItem(new Server().url("http://81.70.166.108:8888/"));
 
         // add header
         Map<String, SecurityScheme> map = new HashMap<>();

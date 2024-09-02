@@ -2,7 +2,9 @@ package com.sc.scbackend.SCResident.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sc.scbackend.SCResident.domain.Vehicle;
+import com.sc.scbackend.SCResident.dto.AddVehicleRequest;
 import com.sc.scbackend.SCResident.dto.SelectVehicleByLicensePlateRequest;
+import com.sc.scbackend.SCResident.service.MemberService;
 import com.sc.scbackend.SCResident.service.VehicleService;
 import com.sc.scbackend.base.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +23,24 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
-    @PostMapping(path = "add")
-    public ResponseEntity<BaseResult> addVehicle(@RequestBody Vehicle vehicle) {
+    @Autowired
+    private MemberService memberService;
 
-        boolean res = vehicleService.save(vehicle);
-        if (res) {
-            return ResponseEntity.ok().body(BaseResult.success("添加成功", vehicle));
-        } else {
-            return ResponseEntity.internalServerError().body(BaseResult.fail());
+    @PostMapping(path = "add")
+    public ResponseEntity<BaseResult> addVehicle(@RequestBody AddVehicleRequest addVehicleRequest) {
+
+        if(!memberService.validMemberById(addVehicleRequest.getResidentId())){
+            return ResponseEntity.internalServerError().body(BaseResult.fail("住户不存在"));
         }
+
+        vehicleService.addVehicleInfo(
+                addVehicleRequest.getLicensePlate(),
+                addVehicleRequest.getRegistrationPhoto(),
+                addVehicleRequest.getResidentId()
+        );
+
+        return ResponseEntity.ok().body(BaseResult.success("添加成功"));
+
     }
 
     @PostMapping(path = "delete")

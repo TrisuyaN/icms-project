@@ -1,5 +1,6 @@
 package com.sc.scbackend.SCResident.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,7 +17,7 @@ import java.util.Date;
 @TableName("propertyinfo")
 public class PropertyInfo extends BaseEntity {
 
-    @TableId(value = "ID")
+    @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;
 
     @TableField(value = "BuildingNumber")

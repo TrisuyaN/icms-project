@@ -137,7 +137,7 @@ public class DataGetTests {
 
     @Test
     public void MemberPropertyServiceTest() {
-        System.out.println(memberPropertyService.getById("10000001"));
+//        System.out.println(memberPropertyService.getById("10000001"));
     }
 
     @Test

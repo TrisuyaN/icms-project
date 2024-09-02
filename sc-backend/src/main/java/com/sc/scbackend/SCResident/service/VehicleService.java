@@ -4,5 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.sc.scbackend.SCResident.domain.Vehicle;
 
 public interface VehicleService extends IService<Vehicle> {
-    // 这里可以添加特定的方法
+    void addVehicleInfo(
+            String licensePlate,
+            byte[] registrationPhoto,
+            Integer residentId);
 }

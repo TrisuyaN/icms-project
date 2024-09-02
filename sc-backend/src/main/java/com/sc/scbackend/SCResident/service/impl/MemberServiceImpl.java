@@ -11,6 +11,7 @@ import com.sc.scbackend.SCResident.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Component
@@ -47,5 +48,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, Member> implements
         List<MemberPropertyInfoDTO> res = memberDao.selectJoinList(MemberPropertyInfoDTO.class, wrapper);
 
         return res;
+    }
+
+    @Override
+    public boolean validMemberById(Serializable id) {
+        return memberDao.selectById(id) != null;
     }
 }

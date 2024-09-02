@@ -1,5 +1,6 @@
 package com.sc.scbackend.SCInfrastructure.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @TableName("locationinfo")
 public class LocationInfo extends BaseEntity {
 
-    @TableId(value = "PointID")
+    @TableId(value = "PointID", type = IdType.AUTO)
     private Integer pointId;
 
     @TableField(value = "LocationName")

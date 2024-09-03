@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface RoadEnvironmentInspectionService extends IService<RoadEnvironmentInspection> {
 
-    List<VehicleOccupationDTO> getRoadEnvironmentInspection(String licensePlate, RoadEnvironmentInspectionStatus roadEnvironmentInspectionStatus);
+    List<VehicleOccupationDTO> getVehicleOccupationDTO(String licensePlate, RoadEnvironmentInspectionStatus roadEnvironmentInspectionStatus);
+
+//    List<RoadEnvironmentInspection> getVehicleOccupationDTO(String licensePlate, RoadEnvironmentInspectionStatus roadEnvironmentInspectionStatus);
 }

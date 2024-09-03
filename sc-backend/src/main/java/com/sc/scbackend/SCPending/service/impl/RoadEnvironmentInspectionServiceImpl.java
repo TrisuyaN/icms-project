@@ -20,8 +20,7 @@ public class RoadEnvironmentInspectionServiceImpl extends ServiceImpl<RoadEnviro
     @Autowired
     private RoadEnvironmentInspectionDao roadEnvironmentInspectionDao;
 
-    @Override
-    public List<VehicleOccupationDTO> getRoadEnvironmentInspection(String licensePlate, RoadEnvironmentInspectionStatus roadEnvironmentInspectionStatus) {
+    public List<VehicleOccupationDTO> getVehicleOccupationDTO(String licensePlate, RoadEnvironmentInspectionStatus roadEnvironmentInspectionStatus) {
 
         MPJLambdaWrapper<RoadEnvironmentInspection> wrapper = new MPJLambdaWrapper<>();
         wrapper
@@ -41,4 +40,23 @@ public class RoadEnvironmentInspectionServiceImpl extends ServiceImpl<RoadEnviro
 
         return res; // 返回结果
     }
+
+//    @Override
+//    public List<RoadEnvironmentInspection> getVehicleOccupationDTO(String licensePlate, RoadEnvironmentInspectionStatus roadEnvironmentInspectionStatus) {
+//
+//        MPJLambdaWrapper<RoadEnvironmentInspection> wrapper = new MPJLambdaWrapper<>();
+//        wrapper
+//                .selectAll(RoadEnvironmentInspection.class)
+//                .eq(RoadEnvironmentInspection::getInspectionType, RoadEnvironmentInspectionType.CAR_OBSTRUCTION);
+//        if (licensePlate != null) {
+//            wrapper.like(Vehicle::getLicensePlate, licensePlate);
+//        }
+//        if (roadEnvironmentInspectionStatus != null) {
+//            wrapper.eq(RoadEnvironmentInspection::getInspectionStatus, roadEnvironmentInspectionStatus); // 根据状态筛选
+//        }
+//
+//        List<RoadEnvironmentInspection> res = roadEnvironmentInspectionDao.selectJoinList(RoadEnvironmentInspection.class, wrapper);
+//
+//        return res; // 返回结果
+//    }
 }

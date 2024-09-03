@@ -54,6 +54,10 @@ public class EmployeeController {
     @PostMapping(path = "update_info")
     public ResponseEntity<BaseResult> updateEmployeeInfo(@RequestBody UpdateEmployeeInfoRequest updateEmployeeInfoRequest) {
 
+        if(updateEmployeeInfoRequest.getEmployeeId() == null) {
+            return ResponseEntity.badRequest().body(BaseResult.fail("职员ID不能为空"));
+        }
+
         Employee employee = employeeService.createFromUpdateEmployeeRequest(updateEmployeeInfoRequest);
 
         boolean res = employeeService.updateInfoById(employee);
@@ -68,6 +72,19 @@ public class EmployeeController {
     public ResponseEntity<BaseResult> updateEmployeePassword(@RequestBody UpdateEmployeePasswordRequest updateEmployeeInfoRequest) {
 
         boolean res = employeeService.updateMD5PwdById(updateEmployeeInfoRequest.getEmployeeId(), updateEmployeeInfoRequest.getPassword());
+        if (res) {
+            return ResponseEntity.ok().body(BaseResult.success("修改成功"));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
+    @PostMapping(path = "update_passwd_pn")
+    public ResponseEntity<BaseResult> updateEmployeePasswordByPhoneNumber(@RequestBody UpdateEmployeePasswordByPhoneNumberRequest updateEmployeePasswordByPhoneNumberRequest) {
+
+        boolean res = employeeService.updateMD5PwdByPhoneNumber(
+                updateEmployeePasswordByPhoneNumberRequest.getPhoneNumber(),
+                updateEmployeePasswordByPhoneNumberRequest.getPassword());
         if (res) {
             return ResponseEntity.ok().body(BaseResult.success("修改成功"));
         } else {

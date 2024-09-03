@@ -13,6 +13,8 @@ public interface EmployeeService extends IService<Employee> {
 
     boolean updateMD5PwdById(String id, String newPassword);
 
+    boolean updateMD5PwdByPhoneNumber(String phoneNumber, String newPassword);
+
     boolean updateInfoById(Employee employee);
 
     Employee login(Employee employee);

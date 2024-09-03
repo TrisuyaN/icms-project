@@ -16,6 +16,8 @@ public class MemberPropertyInfoDTO {
 
     private byte[] photo;
 
+    private String property;
+
     private Integer buildingNumber;
 
     private String name;

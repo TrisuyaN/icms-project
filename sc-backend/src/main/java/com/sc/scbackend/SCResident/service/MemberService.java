@@ -10,5 +10,13 @@ import java.util.List;
 public interface MemberService extends IService<Member> {
     List<MemberPropertyInfoDTO> getMemberPropertyInfoByConditions(String name, Integer buildingNumber, String unit, Integer floorNumber, String roomNumber);
 
+    List<Member> getMembersByNameAndContact(String name, String contact);
+
     boolean validMemberById(Serializable id);
+
+    boolean validMemberByName(String name);
+
+    boolean validMemberByContact(String phoneNumber);
+
+    boolean validateMemberByNameAndContact(String name, String contact);
 }

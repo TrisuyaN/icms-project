@@ -71,7 +71,7 @@ public class RoadEnvironmentInspectionController {
     public ResponseEntity<BaseResult> selectCarOccupation() {
 
         QueryWrapper<RoadEnvironmentInspection> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("InspectionType", RoadEnvironmentInspectionType.OBSTRUCTION_REMOVAL);
+        queryWrapper.eq("InspectionType", RoadEnvironmentInspectionType.CAR_OBSTRUCTION);
 
         List<RoadEnvironmentInspection> res = roadEnvironmentInspectionService.list(queryWrapper);
         if (res != null) {
@@ -83,10 +83,10 @@ public class RoadEnvironmentInspectionController {
 
     // 需要联表组合查询
     @PostMapping(path = "carbycondition")
-    public ResponseEntity<BaseResult> selectCarOccupationByCondition(@RequestBody SelectVehicleOccupationRequest selectVehicleOccupationRequest) {
+    public ResponseEntity<BaseResult> selectCarOccupationWithMoreInfoByCondition(@RequestBody SelectVehicleOccupationRequest selectVehicleOccupationRequest) {
 
         // TODO：非空检查
-        List<VehicleOccupationDTO> res = roadEnvironmentInspectionService.getRoadEnvironmentInspection(
+        List<VehicleOccupationDTO> res = roadEnvironmentInspectionService.getVehicleOccupationDTO(
                 selectVehicleOccupationRequest.getLicensePlate(),
                 selectVehicleOccupationRequest.getRoadEnvironmentInspectionStatus());
 
@@ -96,6 +96,22 @@ public class RoadEnvironmentInspectionController {
             return ResponseEntity.internalServerError().body(BaseResult.fail());
         }
     }
+
+//    // 需要联表组合查询
+//    @PostMapping(path = "carbycondition")
+//    public ResponseEntity<BaseResult> selectCarOccupationByCondition(@RequestBody SelectVehicleOccupationRequest selectVehicleOccupationRequest) {
+//
+//        // TODO：非空检查
+//        List<RoadEnvironmentInspection> res = roadEnvironmentInspectionService.getVehicleOccupationDTO(
+//                selectVehicleOccupationRequest.getLicensePlate(),
+//                selectVehicleOccupationRequest.getRoadEnvironmentInspectionStatus());
+//
+//        if (res != null) {
+//            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+//        } else {
+//            return ResponseEntity.internalServerError().body(BaseResult.fail());
+//        }
+//    }
 
     @PostMapping(path = "findbycondition")
     public ResponseEntity<BaseResult> selectByRoadEnvStatus(@RequestBody SelectByRoadEnvStatusRequest selectByRoadEnvStatusRequest) {

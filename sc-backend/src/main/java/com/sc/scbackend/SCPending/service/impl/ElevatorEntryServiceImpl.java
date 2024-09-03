@@ -22,14 +22,15 @@ public class ElevatorEntryServiceImpl extends ServiceImpl<ElevatorEntryDao, Elev
     public List<MemberElevatorEntryDTO> getMemberElevatorEntryByMemberName(String memberName) {
 
         MPJLambdaWrapper<ElevatorEntry> wrapper = new MPJLambdaWrapper<>();
+        wrapper.selectAll(ElevatorEntry.class)
+                .selectAll(Member.class)
+                .leftJoin(Member.class, Member::getId, ElevatorEntry::getMemberId);
 
-        List<MemberElevatorEntryDTO> res = elevatorEntryDao.selectJoinList(MemberElevatorEntryDTO.class,
-                wrapper
-                        .selectAll(ElevatorEntry.class)
-                        .selectAll(Member.class)
-                        .leftJoin(Member.class, Member::getId, ElevatorEntry::getMemberId)
-                        .eq(Member::getName, memberName)
-        );
+        if(memberName != null) {
+            wrapper.like(Member::getName, memberName);
+        }
+
+        List<MemberElevatorEntryDTO> res = elevatorEntryDao.selectJoinList(MemberElevatorEntryDTO.class, wrapper);
 
         return res;
     }

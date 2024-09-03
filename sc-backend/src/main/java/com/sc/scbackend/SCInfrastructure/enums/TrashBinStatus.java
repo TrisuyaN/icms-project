@@ -15,7 +15,7 @@ import lombok.Getter;
 public enum TrashBinStatus implements IBaseEnum<String> {
     OPERATIONAL("Operational", "正常运行"),
     FULL("Full", "已满"),
-    NEEDS_MAINTENANCE("NeedsMaintenance", "需要维护");
+    NEEDS_MAINTENANCE("Needs Maintenance", "需要维护");
 
     private final String value;
     private final String desc;

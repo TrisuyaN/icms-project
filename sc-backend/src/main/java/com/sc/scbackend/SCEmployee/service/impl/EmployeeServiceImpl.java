@@ -58,6 +58,17 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> impl
     }
 
     @Override
+    public boolean updateMD5PwdByPhoneNumber(String phoneNumber, String newPassword) {
+
+        Employee employee = employeeDao.getByPhoneNumber(phoneNumber);
+
+        // 加密逻辑
+        employee.setPassword(MD5Util.MD5(newPassword));
+        employeeDao.updateById(employee);
+        return employeeDao.getByAccount(employee.getAccount()) != null;
+    }
+
+    @Override
     public boolean updateInfoById(Employee employee) {
         employee.setPassword(employeeDao.selectById(employee.getEmployeeId()).getPassword()); // 使用原 password
         employeeDao.updateById(employee);

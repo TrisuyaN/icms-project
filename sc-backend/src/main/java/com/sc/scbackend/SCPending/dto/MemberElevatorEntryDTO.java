@@ -13,7 +13,7 @@ public class MemberElevatorEntryDTO {
 
     private Date entryTime;
 
-    private String memberName;
+    private String name;
 
     private String contactInfo;
 }

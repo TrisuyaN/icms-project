@@ -54,6 +54,10 @@ public class EmployeeController {
     @PostMapping(path = "update_info")
     public ResponseEntity<BaseResult> updateEmployeeInfo(@RequestBody UpdateEmployeeInfoRequest updateEmployeeInfoRequest) {
 
+        if(updateEmployeeInfoRequest.getEmployeeId() == null) {
+            return ResponseEntity.badRequest().body(BaseResult.fail("职员ID不能为空"));
+        }
+
         Employee employee = employeeService.createFromUpdateEmployeeRequest(updateEmployeeInfoRequest);
 
         boolean res = employeeService.updateInfoById(employee);

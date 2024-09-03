@@ -51,7 +51,27 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, Member> implements
     }
 
     @Override
+    public List<Member> getMembersByNameAndContact(String name, String contact) {
+        return memberDao.selectByNameAndContact(name, contact);
+    }
+
+    @Override
     public boolean validMemberById(Serializable id) {
         return memberDao.selectById(id) != null;
+    }
+
+    @Override
+    public boolean validMemberByName(String name) {
+        return memberDao.selectByName(name) != null;
+    }
+
+    @Override
+    public boolean validMemberByContact(String phoneNumber) {
+        return memberDao.selectByContact(phoneNumber) != null;
+    }
+
+    @Override
+    public boolean validateMemberByNameAndContact(String name, String contact) {
+       return memberDao.selectByNameAndContact(name, contact) != null;
     }
 }

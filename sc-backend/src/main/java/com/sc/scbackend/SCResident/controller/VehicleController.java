@@ -56,15 +56,15 @@ public class VehicleController {
         }
     }
 
-    @PostMapping(path = "findall")
-    public ResponseEntity<BaseResult> selectAllVehicle() {
-        List<Vehicle> res = vehicleService.list();
-        if (res != null) {
-            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
-        } else {
-            return ResponseEntity.internalServerError().body(BaseResult.fail());
-        }
-    }
+//    @PostMapping(path = "findall")
+//    public ResponseEntity<BaseResult> selectAllVehicle() {
+//        List<Vehicle> res = vehicleService.list();
+//        if (res != null) {
+//            return ResponseEntity.ok().body(BaseResult.success("查询成功", res));
+//        } else {
+//            return ResponseEntity.internalServerError().body(BaseResult.fail());
+//        }
+//    }
 
     @PostMapping(path = "findbycondition")
     public ResponseEntity<BaseResult> selectVehicleByLicensePlate(@RequestBody SelectVehicleByLicensePlateRequest selectVehicleByLicensePlateRequest) {
@@ -102,6 +102,18 @@ public class VehicleController {
             return ResponseEntity.ok().body(BaseResult.success("更新成功"));
         } else {
             return ResponseEntity.internalServerError().body(BaseResult.fail("更新失败"));
+        }
+    }
+
+    // TODO: 接口设计问题：无法通过 name 和 contact_info 定位唯一的 Member
+    @PostMapping(path = "findall")
+    public ResponseEntity<BaseResult> selectAllVehicle() {
+        List<VehicleInfoDTO> res = vehicleService.getAllVehicleInfo();
+
+        if(res == null){
+            return ResponseEntity.internalServerError().body(BaseResult.success("查询失败"));
+        }else {
+            return ResponseEntity.ok().body(BaseResult.fail("查询成功", res));
         }
     }
 }

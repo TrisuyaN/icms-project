@@ -71,7 +71,7 @@ public class RoadEnvironmentInspectionController {
     public ResponseEntity<BaseResult> selectCarOccupation() {
 
         QueryWrapper<RoadEnvironmentInspection> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("InspectionType", RoadEnvironmentInspectionType.OBSTRUCTION_REMOVAL);
+        queryWrapper.eq("InspectionType", RoadEnvironmentInspectionType.CAR_OBSTRUCTION);
 
         List<RoadEnvironmentInspection> res = roadEnvironmentInspectionService.list(queryWrapper);
         if (res != null) {

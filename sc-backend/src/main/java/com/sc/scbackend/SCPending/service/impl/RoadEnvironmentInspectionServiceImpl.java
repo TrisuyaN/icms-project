@@ -6,6 +6,7 @@ import com.sc.scbackend.SCPending.dao.RoadEnvironmentInspectionDao;
 import com.sc.scbackend.SCPending.domain.RoadEnvironmentInspection;
 import com.sc.scbackend.SCPending.dto.VehicleOccupationDTO;
 import com.sc.scbackend.SCPending.enums.RoadEnvironmentInspectionStatus;
+import com.sc.scbackend.SCPending.enums.RoadEnvironmentInspectionType;
 import com.sc.scbackend.SCPending.service.RoadEnvironmentInspectionService;
 import com.sc.scbackend.SCResident.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,10 @@ public class RoadEnvironmentInspectionServiceImpl extends ServiceImpl<RoadEnviro
                 .selectAll(RoadEnvironmentInspection.class) // 选择 RoadEnvironmentInspection 表的所有字段
                 .selectAll(Vehicle.class)                    // 选择 Vehicle 表的所有字段
 //                .leftJoin(Vehicle.class, Vehicle::getLicensePlate, RoadEnvironmentInspection::getCarId);
-                .leftJoin(Vehicle.class, Vehicle::getId, RoadEnvironmentInspection::getCarId); // 左连接，连接字段为id（int）而非车牌！
-
+                .leftJoin(Vehicle.class, Vehicle::getId, RoadEnvironmentInspection::getCarId) // 左连接，连接字段为id（int）而非车牌！
+                .eq(RoadEnvironmentInspection::getInspectionType, RoadEnvironmentInspectionType.CAR_OBSTRUCTION); // 查询车辆占道类型
         if (licensePlate != null) {
-            wrapper.eq(Vehicle::getLicensePlate, licensePlate); // 根据车牌号筛选
+            wrapper.like(Vehicle::getLicensePlate, licensePlate); // 根据车牌号筛选
         }
         if (roadEnvironmentInspectionStatus != null) {
             wrapper.eq(RoadEnvironmentInspection::getInspectionStatus, roadEnvironmentInspectionStatus); // 根据状态筛选

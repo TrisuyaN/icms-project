@@ -79,6 +79,19 @@ public class EmployeeController {
         }
     }
 
+    @PostMapping(path = "update_passwd_pn")
+    public ResponseEntity<BaseResult> updateEmployeePasswordByPhoneNumber(@RequestBody UpdateEmployeePasswordByPhoneNumberRequest updateEmployeePasswordByPhoneNumberRequest) {
+
+        boolean res = employeeService.updateMD5PwdByPhoneNumber(
+                updateEmployeePasswordByPhoneNumberRequest.getPhoneNumber(),
+                updateEmployeePasswordByPhoneNumberRequest.getPassword());
+        if (res) {
+            return ResponseEntity.ok().body(BaseResult.success("修改成功"));
+        } else {
+            return ResponseEntity.internalServerError().body(BaseResult.fail());
+        }
+    }
+
     @PostMapping(path = "findall")
     public ResponseEntity<BaseResult> selectAllEmployee() {
         List<Employee> res = employeeService.list();

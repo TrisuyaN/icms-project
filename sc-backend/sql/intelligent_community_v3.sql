@@ -343,7 +343,7 @@ DROP TABLE IF EXISTS `employeeinfo`;
 -- 创建 employeeinfo 表
 CREATE TABLE `employeeinfo`
 (
-    `EmployeeID`  VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci                       NOT NULL,
+    `EmployeeID`  VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci                       NOT NULL,
     `Name`        VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci                      NOT NULL,
     `Position`    ENUM ('超级管理员','保安','保洁') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
     `Status`      ENUM ('在职','离职','休假') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci       NOT NULL,
@@ -1188,7 +1188,7 @@ DROP TABLE IF EXISTS `memberproperty`;
 -- 创建 memberproperty 表
 CREATE TABLE `memberproperty`
 (
-    `MemberID`         VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+    `MemberID`         int(15) unsigned zerofill                                    NOT NULL,
     `PropertyID`       INT                                                          NOT NULL,
     `RelationshipType` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
     PRIMARY KEY (`MemberID`, `PropertyID`) USING BTREE,
@@ -1250,7 +1250,7 @@ DROP TABLE IF EXISTS `members`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `members`
 (
-    `id`              int(8) unsigned zerofill                                      NOT NULL AUTO_INCREMENT,
+    `id`              int(15) unsigned zerofill                                      NOT NULL AUTO_INCREMENT,
     `photo`           blob,
     `property`        varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL,
     `name`            varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,

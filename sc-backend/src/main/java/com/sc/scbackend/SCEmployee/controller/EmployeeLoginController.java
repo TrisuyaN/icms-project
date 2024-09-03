@@ -42,8 +42,8 @@ public class EmployeeLoginController {
         Employee loginEmployee = employeeService.getByAccount(request.getAccount());
         if (loginEmployee == null) {
             return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号不存在"));
-//        } else if (!loginEmployee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
-        } else if (!loginEmployee.getPassword().equals(request.getPassword())) {
+        } else if (!loginEmployee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
+//        } else if (!loginEmployee.getPassword().equals(request.getPassword())) {
             return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号或密码不正确"));
         }
 
@@ -64,8 +64,8 @@ public class EmployeeLoginController {
         Employee loginEmployee = employeeService.getByPhoneNumber(request.getPhoneNumber());
         if (loginEmployee == null) {
             return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，账号不存在"));
-//        } else if (!loginEmployee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
-        } else if (!loginEmployee.getPassword().equals(request.getPassword())) {
+        } else if (!loginEmployee.getPassword().equals(MD5Util.MD5(request.getPassword()))) {
+//        } else if (!loginEmployee.getPassword().equals(request.getPassword())) {
             return ResponseEntity.badRequest().body(BaseResult.fail("登录失败，手机号或密码不正确"));
         }
 

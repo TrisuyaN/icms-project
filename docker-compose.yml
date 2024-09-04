@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  sc-backend-demo:
+    container_name: sc-backend
+    build:
+      context: ./sc-backend
+    environment:
+      - DATABASE_URL_MYSQL=${DATABASE_URL_MYSQL}
+      - DATABASE_USERNAME_MYSQL=${DATABASE_USERNAME_MYSQL}
+      - DATABASE_PASSWORD_MYSQL=${DATABASE_PASSWORD_MYSQL}
+      - DATABASE_HOST_REDIS=${DATABASE_HOST_REDIS}
+      - SMS_ACCESS_KEY_ID=${SMS_ACCESS_KEY_ID}
+      - SMS_ACCESS_KEY_SECRET=${SMS_ACCESS_KEY_SECRET}
+      - SMS_CONFIG_ENDPOINT=${SMS_CONFIG_ENDPOINT}
+      - SMS_SIGN_NAME=${SMS_SIGN_NAME}
+      - TEMPLATE_CODE=${TEMPLATE_CODE}
+      - SWAGGER_SERVERS=${SWAGGER_SERVERS}
+    ports:
+      - "8888:8088"
+    restart: always
+    networks:
+      - sc-network
+
+  sc-mysql:
+    container_name: sc-mysql
+    build:
+      context: ./sc-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=sc
+    volumes:
+      - sc-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - sc-network
+    restart: always
+
+  sc-redis:
+    container_name: sc-redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - sc-network
+
+volumes:
+  sc-mysql-data:
+
+networks:
+  sc-network:
+    driver: bridge  # 指定网络驱动

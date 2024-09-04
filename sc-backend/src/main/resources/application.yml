@@ -1,6 +1,10 @@
 server:
   port: 8088
 
+swagger:
+  # example: "http://localhost:8088/,http://114.51.41.91:9198/"
+  servers: "http://localhost:8088/"
+
 spring:
   application:
     name: Intelligent Community Backend
@@ -8,9 +12,9 @@ spring:
   datasource:
     driver-class-name:  com.mysql.cj.jdbc.Driver
     type:               com.alibaba.druid.pool.DruidDataSource
-    username:
-    password:
-    url:
+    username:           # your username
+    password:           # your password
+    url:                # your MySQL service url
   banner:
     location: Banner.txt
   jackson:
@@ -44,17 +48,22 @@ spring:
           max-active: 8
           # 从连接池获取连接 最大超时时间，小于等于0则表示不会超时
           max-wait: -1ms
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
     com.sc.scbackend.controller: ERROR
     # OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL
 
-# 你的 API accessKey 和相关配置
 SmsMessageUtilConfig:
-  accessKeyId:
-  accessKeySecret:
-  config_endpoint:
-  signName:
-  TemplateCode:
-
+  accessKeyId:          # yours
+  accessKeySecret:      # yours
+  config_endpoint:      # yours
+  signName:             # yours
+  TemplateCode:         # yours

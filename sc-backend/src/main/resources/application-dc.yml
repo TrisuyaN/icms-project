@@ -1,0 +1,68 @@
+server:
+  port: 8088
+
+swagger:
+  servers: ${SWAGGER_SERVERS}
+
+spring:
+  application:
+    name: Intelligent Community Backend
+    description: "Intelligent Community Backend service APIs"
+  datasource:
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    type:               com.alibaba.druid.pool.DruidDataSource
+    username:           ${DATABASE_USERNAME_MYSQL}
+    password:           ${DATABASE_PASSWORD_MYSQL}
+    url:                ${DATABASE_URL_MYSQL}
+  banner:
+    location: Banner.txt
+  jackson:
+    date-format: yyyy-MM-dd
+  data:
+    redis:
+      # 连接地址
+      host: ${DATABASE_HOST_REDIS}
+      # 端口
+      port: 6379
+      # 数据库
+      database: 0
+      # 用户名，如果有
+      # username:
+      # 密码，如果有
+      # password:
+      # 连接超时
+      connect-timeout: 5s
+      # 读超时
+      timeout: 5s
+
+      # Lettuce 客户端的配置
+      lettuce:
+        # 连接池配置
+        pool:
+          # 最小空闲连接
+          min-idle: 0
+          # 最大空闲连接
+          max-idle: 8
+          # 最大活跃连接
+          max-active: 8
+          # 从连接池获取连接 最大超时时间，小于等于0则表示不会超时
+          max-wait: -1ms
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.sc.scbackend.controller: ERROR
+    # OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL
+
+SmsMessageUtilConfig:
+  accessKeyId:      ${SMS_ACCESS_KEY_ID}
+  accessKeySecret:  ${SMS_ACCESS_KEY_SECRET}
+  config_endpoint:  ${SMS_CONFIG_ENDPOINT}
+  signName:         ${SMS_SIGN_NAME}
+  TemplateCode:     ${TEMPLATE_CODE}

@@ -7,12 +7,15 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,12 +25,18 @@ public class SwaggerConfig {
     @Value("${spring.application.description}")
     private String appDescription;
 
+    @Autowired
+    private Environment env;
+
     @Bean
     public OpenAPI openApi(@Value("${spring.application.name}") String applicationName, ObjectProvider<BuildProperties> buildProperties) {
         OpenAPI openAPI = new OpenAPI();
-        openAPI.addServersItem(new Server().url("https://frp-bus.top:28088/"));
-        openAPI.addServersItem(new Server().url("http://localhost:8088/"));
-        openAPI.addServersItem(new Server().url("http://81.70.166.108:8888/"));
+
+        // 从 `application.yml` 获取 Servers
+        List<String> serverUrls = List.of(env.getProperty("swagger.servers").split(","));
+        for (String url : serverUrls) {
+            openAPI.addServersItem(new Server().url(url.trim()));
+        }
 
         // add header
         Map<String, SecurityScheme> map = new HashMap<>();
